@@ -1,9 +1,13 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <h1 class="text-2xl font-bold mb-4">Daftar Produk</h1>
+        <h1 class="text-2xl text-green-500 font-bold mb-4">Daftar Produk</h1>
     
-        <a href="{{ route('products.create') }}" class="text-blue-500 hover:underline mb-4 inline-block">Tambah Produk</a>
+        <button 
+            onclick="window.location.href='{{ route('products.create') }}'" 
+            class="bg-green-500 hover:bg-green-300 text-white py-2 px-4 rounded">
+            Tambah Produk
+        </button>
     </x-slot>
     <main class="flex-grow container mx-auto mt-6 px-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -16,5 +20,13 @@
                 </div>
             @endforeach
         </div>
+        <form action="{{ route('categories.store') }}" method="POST">
+            @csrf
+            <label for="name" class="block font-medium">Nama Kategori:</label>
+            <input type="text" name="name" id="name" class="w-full border rounded px-3 py-2" required>
+            <label for="text" class="block font-medium">Kode Kategori:</label>
+            <input type="text" name="name" id="name" class="w-full border rounded px-3 py-2" required>
+            <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded">Simpan</button>
+        </form>
     </main>
 </x-app-layout>

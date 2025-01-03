@@ -46,7 +46,8 @@ Route::middleware(['auth'])->group(function () {
 // })->name('products.tambah');
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 // Route untuk menyimpan post baru (store)
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');

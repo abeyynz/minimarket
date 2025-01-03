@@ -1,7 +1,7 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h1>Tambah Produk</h1>
+        <h1 class="text-2xl text-green-500 font-bold">Tambah Produk</h1>
     </x-slot>
     <main class="flex-grow container mx-auto mt-6 px-4">
     <form action="{{ route('products.store') }}" method="POST">
