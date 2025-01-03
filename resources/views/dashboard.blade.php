@@ -2,10 +2,6 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <!-- <h2 class="bg-[#378bf1] font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2> -->
-        <!-- Navigasi ke Halaman Produk dan Kategori -->
         <nav class="flex mt-4 space-x-4">
             <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-black rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-[#ffffff]">
                 <li>
