@@ -1,12 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
-        <h1 class="text-2xl text-green-500 font-bold">Daftar Kategori</h1>
-      
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl text-white font-bold">Daftar Kategori</h1>
+            <button 
+                onclick="window.location.href='{{ route('categories.create') }}'" 
+                class="bg-white hover:bg-blue-200 text-blue-400 hover:text-white py-2 px-4 rounded">
+                Tambah Kategori
+            </button>
+        </div>
     </x-slot>
 
     <main class="container mx-auto mt-6 px-4">
         <table class="table-auto w-full bg-white border border-gray-200 rounded-lg shadow-md">
-            <thead class="bg-green-500 text-white">
+            <thead class="bg-blue-300 text-white">
                 <tr>
                     <th class="px-4 py-2 text-left border">ID</th>
                     <th class="px-4 py-2 text-left border">Nama Kategori</th>
@@ -23,11 +29,5 @@
                 @endforeach
             </tbody>
         </table>
-        <br>
-        <button 
-            onclick="window.location.href='{{ route('categories.create') }}'" 
-            class="bg-green-500 hover:bg-green-300 text-white py-2 px-4 rounded">
-            Tambah Kategori
-        </button>
     </main>
 </x-app-layout>
