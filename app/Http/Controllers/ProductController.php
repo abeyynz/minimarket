@@ -19,4 +19,20 @@ class ProductController extends Controller
         $categories = Category::all();
         return view('products.create', compact('categories'));
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'code' => 'required|string|max:50|unique:products,code',
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'unit' => 'required|string',
+            'category_id' => 'required|integer|exists:categories,id',
+            'image_url' => 'required|url',
+        ]);
+
+        Product::create($validated);
+
+        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
+    }
 }

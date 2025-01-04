@@ -21,11 +21,8 @@
                     <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
                         {{ __('Produk') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('transaksi.index')" :active="request()->routeIs('transaksi.index')">
+                    <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.index')">
                         {{ __('Transaksi') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('transaksi.history')" :active="request()->routeIs('transaksi.history')">
-                        {{ __('Riwayat Transaksi') }}
                     </x-nav-link>
                 </div>
             </div>

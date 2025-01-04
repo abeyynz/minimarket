@@ -11,21 +11,38 @@
         </div>
     </x-slot>
     <main class="flex-grow container mx-auto mt-6 px-4">
-        <form action="{{ route('products.store') }}" method="POST" class="space-y-6 max-w-md mx-auto">
-            @csrf
+        <form action="{{ route('products.store') }}" method="POST" class="space-y-4 max-w-md mx-auto">
+        @csrf
             <div>
-                <label for="title" class="block text-blue-400 font-bold">Nama Produk</label>
-                <input type="text" name="title" id="title" class="w-full p-2 border border-gray-200 rounded" required min="1" placeholder="Masukkan nama produk">
+                <label for="code" class="block text-blue-400 font-bold">Kode Produk</label>
+                <input type="text" name="code" id="code" class="w-full p-2 border border-gray-200 rounded" required placeholder="Masukkan kode produk, contoh: AT001">
             </div>
             <div>
-                <label for="qty" class="block text-blue-400 font-bold">Jumlah</label>
-                <input type="number" name="qty" id="qty" class="w-full p-2 border border-gray-200 rounded" required min="1" placeholder="Masukkan jumlah produk">
+                <label for="name" class="block text-blue-400 font-bold">Nama Produk</label>
+                <input type="text" name="name" id="name" class="w-full p-2 border border-gray-200 rounded" required placeholder="Masukkan nama produk">
+            </div>
+            <div>
+                <label for="price" class="block text-blue-400 font-bold">Harga</label>
+                <input type="text" name="price" id="price" class="w-full p-2 border border-gray-200 rounded" required placeholder="Masukkan harga produk">
+            </div>
+            <div>
+                <label for="unit" class="block text-blue-400 font-bold">Satuan</label>
+                <input type="text" name="unit" id="unit" class="w-full p-2 border border-gray-200 rounded" required placeholder="Masukkan satuan produk (misal pcs)">
+            </div>
+            <div>
+                <label for="category_id" class="block text-blue-400 font-bold">ID Kategori</label>
+                <input type="number" name="category_id" id="category_id" class="w-full p-2 border border-gray-200 rounded" required placeholder="Masukkan ID kategori">
+            </div>
+            <div>
+                <label for="image_url" class="block text-blue-400 font-bold">URL Gambar</label>
+                <input type="text" name="image_url" id="image_url" class="w-full p-2 border border-gray-200 rounded" required placeholder="Masukkan URL gambar">
             </div>
             <button type="submit" 
                 class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded">
                     Tambah
             </button>
         </form>
+
     </main>
 </x-app-layout>
 

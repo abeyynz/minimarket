@@ -20,15 +20,12 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'code' => 'required|string|max:20|unique:categories',
-            'name' => 'required|string|max:60',
+        $validated = $request->validate([
+            'code' => 'required|string|max:50|unique:categories,code',
+            'name' => 'required|string|max:255',
         ]);
 
-        Category::create([
-            'code' => $request->input('code'),
-            'name' => $request->input('name'),
-        ]);
+        Category::create($validated);
 
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil ditambahkan!');
     }
