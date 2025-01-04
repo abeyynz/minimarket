@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
     <div class="flex items-center space-x-4">
-            <a href="{{ route('categories.index') }}" class="text-blue-600 hover:text-white">
+            <a href="{{ route('categories.index') }}" class="text-blue-600 hover:text-blue-400">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
             </a>
-            <h1 class="text-2xl text-white font-bold">Tambah Kategori</h1>
+            <h1 class="text-2xl text-blue-400 font-bold">Tambah Kategori</h1>
         </div>
     </x-slot>
 
@@ -21,7 +21,10 @@
                 <label for="name" class="block text-blue-400">Nama Kategori</label>
                 <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded" required min="1" placeholder="Masukkan Nama Kategori">
             </div>
-            <button type="submit" class="bg-blue-400 hover:bg-blue-200 text-white hover:text-blue-400 py-2 px-4 rounded">Tambah</button>
+            <button type="submit" 
+                class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded">
+                Tambah
+            </button>
         </form>
 
     </main>

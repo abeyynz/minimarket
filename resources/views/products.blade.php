@@ -1,10 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h1 class="text-2xl text-white font-bold">Daftar Produk</h1>
+        <div class="flex items-center ">
             <button 
                 onclick="window.location.href='{{ route('products.create') }}'" 
-                class="bg-white hover:bg-blue-200 text-blue-400 hover:text-white py-2 px-4 rounded">
+                class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded">
                 Tambah Produk
             </button>
         </div>
