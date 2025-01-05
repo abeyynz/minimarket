@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
@@ -19,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/store', [StoreController::class, 'index'])->name('store');
     Route::get('/user', [UserController::class, 'index'])->name('user');
+    Route::get('/category', [CategoryController::class, 'index'])->name('category');
 });
 
 Route::group(['middleware' => ['auth', 'role:owner']], function () {
@@ -35,6 +37,14 @@ Route::group(['middleware' => ['auth', 'role:manager']], function () {
     Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
     Route::patch('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user/{id}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
+});
+
+Route::group(['middleware' => ['auth', 'role:inventory']], function () {
+    Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::patch('/category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -25,6 +25,11 @@
                         {{ __('User') }}
                     </x-nav-link>
                     @endhasrole
+                    @hasrole('inventory')
+                    <x-nav-link :href="route('category')" :active="request()->routeIs('category')">
+                        {{ __('Category') }}
+                    </x-nav-link>
+                    @endhasrole
                 </div>
             </div>
 
