@@ -17,6 +17,11 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name'=>'read-activity']);
         Permission::create(['name'=>'read-stock-history']);
 
+        Permission::create(['name'=>'create-store']);
+        Permission::create(['name'=>'read-store']);
+        Permission::create(['name'=>'update-store']);
+        Permission::create(['name'=>'delete-store']);
+
         Permission::create(['name'=>'create-user']);
         Permission::create(['name'=>'read-user']);
         Permission::create(['name'=>'update-user']);
@@ -30,6 +35,11 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name'=>'update-product']);
         Permission::create(['name'=>'delete-product']);
 
+        Permission::create(['name'=>'create-category']);
+        Permission::create(['name'=>'read-category']);
+        Permission::create(['name'=>'update-category']);
+        Permission::create(['name'=>'delete-category']);
+
         Role::create(['name'=>'owner']);
         Role::create(['name'=>'manager']);
         Role::create(['name'=>'supervisor']);
@@ -39,7 +49,10 @@ class RolePermissionSeeder extends Seeder
         $roleOwner=Role::findByName('owner');
         $roleOwner->givePermissionTo('read-product');
         $roleOwner->givePermissionTo('read-transaction');
-
+        $roleOwner->givePermissionTo('create-store');
+        $roleOwner->givePermissionTo('read-store');
+        $roleOwner->givePermissionTo('update-store');
+        $roleOwner->givePermissionTo('delete-store');
 
         $roleManager=Role::findByName('manager');
         $roleManager->givePermissionTo('read-product');
@@ -62,5 +75,9 @@ class RolePermissionSeeder extends Seeder
         $roleInventory->givePermissionTo('read-product');
         $roleInventory->givePermissionTo('update-product');
         $roleInventory->givePermissionTo('delete-product');
+        $roleInventory->givePermissionTo('create-category');
+        $roleInventory->givePermissionTo('read-category');
+        $roleInventory->givePermissionTo('update-category');
+        $roleInventory->givePermissionTo('delete-category');
     }
 }
