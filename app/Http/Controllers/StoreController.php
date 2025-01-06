@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class StoreController extends Controller
 {
     public function index()
     {
-        $data['categories'] = Category::all();
-        return view('categories.index', $data);
+        $data['stores'] = Store::all();
+        return view('stores.index', $data);
     }
 
     public function create()
     {
-        return view('categories.create');
+        return view('stores.create');
     }
 
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'name' => 'required|unique:categories,name',
-            'code' => 'required|string|size:3|unique:categories,code',
+            'name' => 'required|unique:stores',
+            'location' => 'required|string|max:255',
         ]);
 
-        $category = Category::create($validate);
+        $store = Store::create($validate);
 
-        if ($category) {
+        if ($store) {
             $notification = array(
                 'message' => 'Berhasil menambahkan cabang minimarket baru',
                 'alert-type' => 'success'
@@ -39,27 +39,27 @@ class CategoryController extends Controller
             );
         }
 
-        return redirect()->route('category')->with($notification);
+        return redirect()->route('store')->with($notification);
     }
 
     public function edit(string $id)
     {
-        $data['category'] = Category::findOrFail($id);
-        return view('categories.edit', $data);
+        $data['store'] = Store::findOrFail($id);
+        return view('stores.edit', $data);
     }
 
     public function update(Request $request, string $id)
     {
-        $category = Category::findOrFail($id);
+        $store = Store::findOrFail($id);
 
         $validate = $request->validate([
-            'name' => 'required|unique:categories,name,' . $id,
-            'code' => 'required|string|size:3|unique:categories,code',
+            'name' => 'required|unique:stores,name,' . $id,
+            'location' => 'required|string|max:255',
         ]);
 
-        $category->update($validate);
+        $store->update($validate);
 
-        if ($category) {
+        if ($store) {
             $notification = array(
                 'message' => 'Data cabang berhasil diperbarui.',
                 'alert-type' => 'success'
@@ -71,19 +71,19 @@ class CategoryController extends Controller
             );
         }
 
-        return redirect()->route('category')->with($notification);
+        return redirect()->route('store')->with($notification);
     }
 
     public function destroy(string $id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        $store = Store::findOrFail($id);
+        $store->delete();
 
         $notification = array(
             'message' => 'Cabang berhasil dihapus.',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('category')->with($notification);
+        return redirect()->route('store')->with($notification);
     }
 }

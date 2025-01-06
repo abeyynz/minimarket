@@ -11,20 +11,43 @@
         </div>
     </x-slot>
     <main class="flex-grow container mx-auto mt-6 px-4">
-        <form action="{{ route('products.store') }}" method="POST" class="space-y-6 max-w-md mx-auto">
+        <form method="post" action="{{ route('product.store') }}" class="mt-6 space-y-6">
             @csrf
-            <div>
-                <label for="title" class="block text-blue-400 font-bold">Nama Produk</label>
-                <input type="text" name="title" id="title" class="w-full p-2 border border-gray-200 rounded" required min="1" placeholder="Masukkan nama produk">
+            <div class="max-w-xl">
+                <label for="name" value="Nama" class="block text-blue-400">Nama Produk</label>
+                <input type="text" name="name" id="name" value="{{ old('name') }}" class="w-full p-2 border border-gray-300 rounded" required min="1" placeholder="Masukkan Nama Produk">
+                <x-input-error class="mt-2" :messages="$errors->get('code')" />
             </div>
-            <div>
-                <label for="qty" class="block text-blue-400 font-bold">Jumlah</label>
-                <input type="number" name="qty" id="qty" class="w-full p-2 border border-gray-200 rounded" required min="1" placeholder="Masukkan jumlah produk">
+            <div class="max-w-xl">
+                <label for="unit" value="Satuan" class="block text-blue-400">Satuan Produk</label>
+                <input id="unit" type="text" name="unit" class="w-full p-2 border border-gray-300 rounded" value="{{ old('unit') }}" required min="1" placeholder="Masukkan Satuan Produk">
+                <x-input-error class="mt-2" :messages="$errors->get('unit')" />
             </div>
-            <button type="submit" 
-                class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded">
-                    Tambah
-            </button>
+            <div class="max-w-xl">
+                <label for="price" value="Harga" class="block text-blue-400">Harga</label>
+                <input id="price" type="text" name="price" class="w-full p-2 border border-gray-300 rounded" value="{{ old('price') }}" required min="1" placeholder="Masukkan Harga Produk"/>
+                <x-input-error class="mt-2" :messages="$errors->get('price')" />
+            </div>
+            <div class="max-w-xl">
+                <label for="category" value="Kategori Produk" class="block text-blue-400">Kategori Produk</label>
+                <x-select-input id="category" name="category_id" class="w-full p-2 border border-gray-300 rounded" required >
+                    <option value="">Open this select menu</option>
+                    @foreach ($categories as $key => $value)
+                        @if (old('category_id') == $key)
+                            <option value="{{ $key }}" selected>{{ $value }}</option>
+                        @else
+                            <option value="{{ $key }}" selected>{{ $value }}</option>
+                        @endif
+                    @endforeach
+                </x-select-input>
+            </div>
+            <div class="max-w-xl">
+                <label for="image" value="Gambar Produk" class="block text-blue-400">Gambar Produk</label>
+                <x-file-input id="image" name="image" class="w-full p-2 border border-gray-300 rounded" />
+                <x-input-error class="mt-2" :messages="$errors->get('image')" />
+            </div>
+            <x-secondary-button tag="a" href="{{ route('product') }}">Cancel</x-secondary-button>
+            <x-primary-button name="save">Save</x-primary-button>
         </form>
     </main>
 </x-app-layout>

@@ -11,19 +11,25 @@
     </x-slot>
 
     <main class="flex-grow container mx-auto mt-6 px-4">
-        <form action="{{ route('categories.store') }}" method="POST" class="space-y-6 max-w-md mx-auto">
+        <form action="{{ route('category.store') }}" method="POST" class="space-y-6 max-w-md mx-auto">
             @csrf
             <div>
-                <label for="code" class="block text-blue-400">Kode Kategori</label>
-                <input type="text" name="code" id="code" class="w-full p-2 border border-gray-300 rounded" required min="1" placeholder="Masukkan Kode Kategori">
+                <label for="code" value="Kode" class="block text-blue-400">Kode Kategori</label>
+                <input type="text" name="code" id="code" value="{{ old('code') }}" class="w-full p-2 border border-gray-300 rounded" required min="1" placeholder="Masukkan Kode Kategori">
+                <x-input-error class="mt-2" :messages="$errors->get('code')" />
             </div>
             <div>
-                <label for="name" class="block text-blue-400">Nama Kategori</label>
-                <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded" required min="1" placeholder="Masukkan Nama Kategori">
+                <label for="name" value="Nama" class="block text-blue-400">Nama Kategori</label>
+                <input type="text" name="name" id="name" value="{{ old('name') }}" class="w-full p-2 border border-gray-300 rounded" required min="1" placeholder="Masukkan Nama Kategori">
+                <x-input-error class="mt-2" :messages="$errors->get('code')" />
             </div>
             <button type="submit" 
                 class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded">
                 Tambah
+            </button>
+            <button tag="a" href="{{ route('category') }}" 
+                class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded">
+                Batal
             </button>
         </form>
 

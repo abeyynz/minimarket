@@ -15,18 +15,24 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
-                        {{ __('Daftar Kategori') }}
+                    @hasrole('owner')
+                    <x-nav-link :href="route('store')" :active="request()->routeIs('store')">
+                        {{ __('Store') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                        {{ __('Produk') }}
+                    @endhasrole
+                    @hasrole('manager')
+                    <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
+                        {{ __('User') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('transaksi.index')" :active="request()->routeIs('transaksi.index')">
-                        {{ __('Transaksi') }}
+                    @endhasrole
+                    @hasrole('inventory')
+                    <x-nav-link :href="route('category')" :active="request()->routeIs('category')">
+                        {{ __('Category') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('transaksi.history')" :active="request()->routeIs('transaksi.history')">
-                        {{ __('Riwayat Transaksi') }}
+                    <x-nav-link :href="route('product')" :active="request()->routeIs('product')">
+                        {{ __('Product') }}
                     </x-nav-link>
+                    @endhasrole
                 </div>
             </div>
 

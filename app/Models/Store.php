@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
 
-class Category extends Model
+class Store extends Model
 {
-    protected $table = 'categories';
+    protected $table = 'stores';
     public $timestamps = false;
     use HasFactory, HasRoles;
 
-    protected $fillable = ['name', 'code'];
+    protected $fillable = ['name', 'location'];
 }
