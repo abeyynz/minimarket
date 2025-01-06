@@ -9,8 +9,8 @@ use Spatie\Permission\Traits\HasRoles;
 class Product extends Model
 {
     protected $table = 'products';
-    protected $primaryKey = 'code'; // Set kolom code sebagai primary key
-    public $incrementing = false;  // Karena kode adalah string
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     protected $keyType = 'string';
     use HasFactory, HasRoles;
 
