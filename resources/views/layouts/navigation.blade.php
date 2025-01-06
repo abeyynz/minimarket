@@ -15,6 +15,24 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @hasrole('owner')
+                    <x-nav-link :href="route('store')" :active="request()->routeIs('store')">
+                        {{ __('Store') }}
+                    </x-nav-link>
+                    @endhasrole
+                    @hasrole('manager')
+                    <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
+                        {{ __('User') }}
+                    </x-nav-link>
+                    @endhasrole
+                    @hasrole('inventory')
+                    <x-nav-link :href="route('category')" :active="request()->routeIs('category')">
+                        {{ __('Category') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('product')" :active="request()->routeIs('product')">
+                        {{ __('Product') }}
+                    </x-nav-link>
+                    @endhasrole
                 </div>
             </div>
 
