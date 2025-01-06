@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/store', [StoreController::class, 'index'])->name('store');
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/category', [CategoryController::class, 'index'])->name('category');
+    Route::get('/product', [ProductController::class, 'index'])->name('product');
 });
 
 Route::group(['middleware' => ['auth', 'role:owner']], function () {
@@ -45,6 +47,11 @@ Route::group(['middleware' => ['auth', 'role:inventory']], function () {
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
     Route::patch('/category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/product/edit/{code}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
+    Route::patch('/product/{code}/update', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/product/{code}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
 });
 
 require __DIR__.'/auth.php';
