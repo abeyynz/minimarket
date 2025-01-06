@@ -46,8 +46,11 @@
                 <input type="text" name="image_url" id="image_url" class="w-full p-2 border border-gray-200 rounded" required placeholder="Masukkan URL gambar">
                 <x-input-error class="mt-2" :messages="$errors->get('image_url')" />
             </div>
-            <x-secondary-button tag="a" href="{{ route('product') }}">Cancel</x-secondary-button>
-            <x-primary-button name="save">Save</x-primary-button>
+            <button tag="a" href="{{ route('product') }}" class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded">Batal</button>
+            <button type="submit" 
+                class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded" name="save">
+                Tambah
+            </button>
         </form>
     </main>
 </x-app-layout>
