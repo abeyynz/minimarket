@@ -22,7 +22,7 @@ class ProductController extends Controller
             'name' => 'required|max:255',
             'unit' => 'required|max:5',
             'price' => 'required',
-            'image' => 'required',
+            'image_url' => 'required|url',
             'category_id' => 'required|exists:categories,id',
         ]);
 
@@ -50,7 +50,7 @@ class ProductController extends Controller
             'name' => $validate['name'],
             'unit' => $validate['unit'],
             'price' => $validate['price'],
-            'image' => $validate['image'],
+            'image_url' => $validate['image_url'],
             'category_id' => $validate['category_id'],
             'code' => $newProductCode,
         ]);

@@ -46,10 +46,8 @@
                             </x-select-input>
                         </div>
                         <div class="max-w-xl">
-                            <x-input-label for="image" value="Halaman Sampul Depan" />
-                            <x-file-input id="image" name="image" class="mt-1 block w-full" />
-                            <x-input-error class="mt-2" :messages="$errors->get('image')" />
-                            <x-text-input type="hidden" name="old_image"value="{{ $product->image }}" />
+                            <label for="image_url" class="block text-blue-400 font-bold">URL Gambar</label>
+                            <input type="text" name="image_url" id="image_url" class="w-full p-2 border border-gray-200 rounded" required placeholder="Masukkan URL gambar">
                         </div>
                         <x-secondary-button tag="a" href="{{ route('product') }}">Batal</x-secondary-button>
                         <x-primary-button value="true">Perbarui</x-primary-button>

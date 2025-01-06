@@ -42,9 +42,9 @@
                 </x-select-input>
             </div>
             <div class="max-w-xl">
-                <label for="image" value="Gambar Produk" class="block text-blue-400">Gambar Produk</label>
-                <x-file-input id="image" name="image" class="w-full p-2 border border-gray-300 rounded" />
-                <x-input-error class="mt-2" :messages="$errors->get('image')" />
+                <label for="image_url" class="block text-blue-400 font-bold">URL Gambar</label>
+                <input type="text" name="image_url" id="image_url" class="w-full p-2 border border-gray-200 rounded" required placeholder="Masukkan URL gambar">
+                <x-input-error class="mt-2" :messages="$errors->get('image_url')" />
             </div>
             <x-secondary-button tag="a" href="{{ route('product') }}">Cancel</x-secondary-button>
             <x-primary-button name="save">Save</x-primary-button>

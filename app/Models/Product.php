@@ -14,5 +14,5 @@ class Product extends Model
     protected $keyType = 'string';
     use HasFactory, HasRoles;
 
-    protected $fillable = ['code', 'name', 'unit', 'price', 'image', 'category_id'];
+    protected $fillable = ['code', 'name', 'unit', 'price', 'image_url', 'category_id'];
 }

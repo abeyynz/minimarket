@@ -8,14 +8,12 @@
             </button>
         </div>
     </x-slot>
-
-    <div class="py-2">
         <div class="max-w-7xl mx-auto mt-6 px-4">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         @foreach ($products as $product)
-                            <div class="border rounded-lg shadow-md p-4 bg-blue-300">
-                                <img src="{{ asset('storage/product_image/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
+                            <div class="border rounded-lg shadow-md p-3 bg-blue-300">
+                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-48 object-cover mb-4">
                                 <div class="p-4">
                                     <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ $product->name }}</h2>
                                     <p class="text-gray-600 dark:text-gray-400 mt-2">Harga: Rp {{ number_format($product->price, 0, ',', '.') }}</p>
@@ -61,6 +59,5 @@
                 </div>
             </div>
         </div>
-    </div>
 
 </x-app-layout>
