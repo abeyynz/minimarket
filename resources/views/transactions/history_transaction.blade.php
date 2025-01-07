@@ -4,6 +4,10 @@
             <h2 class="font-semibold text-xl leading-tight">
                 {{ __('Cabang Cianjur') }}
             </h2>
+            
+            <a href="/print/TRX001" class="bg-green-600 hover:bg-green-400 text-white dark:text-gray-100 py-1 px-4 rounded">
+                Cetak Riwayat Transaksi
+            </a>
         </div>
     </x-slot>
 
@@ -28,11 +32,8 @@
                     <td class="border border-gray-300 px-4 py-2">Rp 83.000</td>
                     <td class="border border-gray-300 px-4 py-2">Tunai</td>
                     <td class="border border-gray-300 px-4 py-2 flex space-x-2">
-                        <a href="/index/TRX002" class="bg-blue-600 hover:bg-blue-400 text-white dark:text-gray-100 py-1 px-4 rounded">
+                        <a href="/index/TRX002" class="bg-blue-400 hover:bg-blue-300 text-white dark:text-gray-100 py-1 px-4 rounded">
                             Lihat Detail
-                        </a>
-                        <a href="/print/TRX001" class="bg-green-600 hover:bg-green-400 text-white dark:text-gray-100 py-1 px-4 rounded">
-                            Cetak
                         </a>
                     </td>
                 </tr>
@@ -43,11 +44,8 @@
                     <td class="border border-gray-300 px-4 py-2">Rp 120.000</td>
                     <td class="border border-gray-300 px-4 py-2">QRIS</td>
                     <td class="border border-gray-300 px-4 py-2 flex space-x-2">
-                        <a href="/index/TRX002" class="bg-blue-600 hover:bg-blue-400 text-white dark:text-gray-100 py-1 px-4 rounded">
+                        <a href="/index/TRX002" class="bg-blue-400 hover:bg-blue-300 text-white dark:text-gray-100 py-1 px-4 rounded">
                             Lihat Detail
-                        </a>
-                        <a href="/print/TRX001" class="bg-green-600 hover:bg-green-400 text-white dark:text-gray-100 py-1 px-4 rounded">
-                            Cetak
                         </a>
                     </td>
                 </tr>
