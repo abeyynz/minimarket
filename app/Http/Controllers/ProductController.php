@@ -22,7 +22,6 @@ class ProductController extends Controller
             'name' => 'required|max:255',
             'unit' => 'required|max:5',
             'price' => 'required',
-            'stock' => 'required|integer|min:1',
             'image_url' => 'required|url',
             'category_id' => 'required|exists:categories,id',
         ]);
@@ -39,19 +38,11 @@ class ProductController extends Controller
         }
 
         $newProductCode = $categoryCode . str_pad($newSequence, 5, '0', STR_PAD_LEFT);
-
-        if($request->hasFile('image')){
-            $path = $request->file('image')->storeAs(
-                'public/product_image',
-                'product_image_'.time() . '.' . $request->file('image')->extension()
-            );
-            $validate['image'] = basename($path);
-        }
         $product = Product::create([
             'name' => $validate['name'],
             'unit' => $validate['unit'],
             'price' => $validate['price'],
-            'stock' => $validate['stock'],
+            'stock' => 0,
             'image_url' => $validate['image_url'],
             'category_id' => $validate['category_id'],
             'code' => $newProductCode,
@@ -69,19 +60,18 @@ class ProductController extends Controller
         }
         return redirect()->route('product')->with($notification);
     }
-    public function edit(string $code){
-        $data['product'] = Product::where('code', $code)->firstOrFail();
+    public function edit(string $id){
+        $data['product'] = Product::where('id', $id)->firstOrFail();
         $data['categories'] = Category::pluck('name', 'id');
         return view('products.edit', $data);
     }
-    public function update(Request $request, string $code){
-        $product = Product::where('code', $code)->firstOrFail();
+    public function update(Request $request, string $id){
+        $product = Product::where('id', $id)->firstOrFail();
         $validate = $request->validate([
             'name' => 'required|max:255',
             'unit' => 'required|max:5',
             'price' => 'required',
-            'stock' => 'required',
-            'image' => 'required',
+            'image_url' => 'required|url',
             'category_id' => 'required|max:5'
         ]);
 
@@ -118,8 +108,7 @@ class ProductController extends Controller
             'name' => $validate['name'],
             'unit' => $validate['unit'],
             'price' => $validate['price'],
-            'stock' => $validate['stock'],
-            'image' => $validate['image'],
+            'image_url' => $validate['image_url'],
             'category_id' => $validate['category_id'],
             'code' => $newProductCode
         ]);
@@ -137,9 +126,37 @@ class ProductController extends Controller
         }
         return redirect()->route('product')->with($notification);
     }
+    public function addStock(string $id){
+        $data['product'] = Product::where('id', $id)->firstOrFail();
+        return view('products.addStock', $data);
+    }
+    public function updateStock(Request $request, string $id){
+        $product = Product::where('id', $id)->firstOrFail();
+        $validate = $request->validate([
+            'stock' => 'required|integer',
+        ]);
+
+        $newStock = $product->stock + $validate['stock'];
+
+        $product->update([
+            'stock' => $newStock,
+        ]);
+
+        if($product){
+            $notification = array(
+                'message' => 'produk berhasil ditambahkan',
+                'alert-type' => 'success'
+            );
+        }else{
+            $notification = array(
+                'message' => 'produk gagal ditambahkan',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect()->route('product')->with($notification);
+    }
     public function destroy(string $id){
         $product = product::findOrFail($id);
-        Storage::delete('public/product_image/'.$product->old_image);
         $product->delete();
         $notification = array(
             'message' => 'produk berhasil dihapus',

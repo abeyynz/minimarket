@@ -51,15 +51,17 @@ Route::group(['middleware' => ['auth', 'role:inventory']], function () {
     Route::patch('/category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/category/{id}/delete', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
-    Route::get('/product/edit/{code}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
-    Route::patch('/product/{code}/update', [ProductController::class, 'update'])->name('product.update');
-    Route::delete('/product/{code}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::patch('/product/{id}/update', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/product/{id}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::get('/product/addStock/{id}', [ProductController::class, 'addStock'])->name('product.addStock');
+    Route::patch('/product/{id}/updateStock', [ProductController::class, 'updateStock'])->name('product.updateStock');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard/history-transaksi', [TransaksiController::class, 'index'])->name('history-transaksi');
-});
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/dashboard/history-transaksi', [TransaksiController::class, 'index'])->name('history-transaksi');
+// });
 
 // Route::get('/transactions', [TransaksiController::class, 'index']);
 // Route::post('/transactions', [TransaksiController::class, 'store']);
@@ -81,16 +83,13 @@ Route::middleware(['auth'])->group(function () {
 //     return view('tambah'); // Menampilkan form untuk membuat post baru
 // })->name('products.tambah');
 
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-
 //transaksi
-Route::get('/transactions', function () {
-    return view('transactions.index');
-});
-Route::get('/transactions/history_transaction', function () {
-    return view('transactions.history_transaction');
-});
+// Route::get('/transactions', function () {
+//     return view('transactions.index');
+// });
+// Route::get('/transactions/history_transaction', function () {
+//     return view('transactions.history_transaction');
+// });
 
 
 require __DIR__.'/auth.php';

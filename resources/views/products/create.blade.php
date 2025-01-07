@@ -2,7 +2,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center space-x-4">
-            <a href="{{ route('products.index') }}" class="text-blue-600 hover:text-blue-400">
+            <a href="{{ route('product.create') }}" class="text-blue-600 hover:text-blue-400">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
@@ -16,7 +16,7 @@
             <div class="max-w-xl">
                 <label for="name" value="Nama" class="block text-blue-400">Nama Produk</label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}" class="w-full p-2 border border-gray-300 rounded" required min="1" placeholder="Masukkan Nama Produk">
-                <x-input-error class="mt-2" :messages="$errors->get('code')" />
+                <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
             <div class="max-w-xl">
                 <label for="unit" value="Satuan" class="block text-blue-400">Satuan Produk</label>
@@ -27,11 +27,6 @@
                 <label for="price" value="Harga" class="block text-blue-400">Harga</label>
                 <input id="price" type="text" name="price" class="w-full p-2 border border-gray-300 rounded" value="{{ old('price') }}" required min="1" placeholder="Masukkan Harga Produk"/>
                 <x-input-error class="mt-2" :messages="$errors->get('price')" />
-            </div>
-            <div class="max-w-xl">
-                <label for="qty" value="Stock" class="block text-blue-400">Stok</label>
-                <input id="qty" type="number" name="qty" class="w-full p-2 border border-gray-300 rounded" value="{{ old('stock') }}" required min="1" placeholder="Masukkan Stok Produk"/>
-                <x-input-error class="mt-2" :messages="$errors->get('stock')" />
             </div>
             <div class="max-w-xl">
                 <label for="category" value="Kategori Produk" class="block text-blue-400">Kategori Produk</label>
@@ -52,7 +47,7 @@
                 <x-input-error class="mt-2" :messages="$errors->get('image_url')" />
             </div>
             <button tag="a" href="{{ route('product') }}" class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded">Batal</button>
-            <button type="submit" 
+            <button type="submit"
                 class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded" name="save">
                 Tambah
             </button>

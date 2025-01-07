@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
-                    <form method="post" action="{{ route('product.update', ['code' => $product->code]) }}" enctype="multipart/form-data"
+                    <form method="post" action="{{ route('product.update', $product->id) }}" enctype="multipart/form-data"
                         class="mt-6 space-y6">
                         @method('PATCH')
                         @csrf

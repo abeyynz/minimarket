@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center ">
-            <button 
-                onclick="window.location.href='{{ route('product.create') }}'" 
+            <button
+                onclick="window.location.href='{{ route('product.create') }}'"
                 class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded">
                 Tambah Produk
             </button>
@@ -18,18 +18,20 @@
                                     <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ $product->name }}</h2>
                                     <p class="text-gray-600 dark:text-gray-400 mt-2">Harga: Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                                     <p class="text-gray-600 dark:text-gray-400 mt-1"> {{ $product->stock }}{{ $product->unit }}</p>
-                                    @hasrole('inventory')
                                     <div>
-                                        <x-primary-button tag="a" href="{{ route('product.edit', ['code' => $product->code]) }}"  class="py-2 px-4 text-sm">
+                                        <x-primary-button tag="a" href="{{ route('product.edit', $product->id) }}"  class="py-2 px-4 text-sm">
                                             Ubah
                                         </x-primary-button>
-                                        <x-danger-button x-data="" 
+                                        <x-primary-button tag="a" href="{{ route('product.addStock',  $product->id) }}" class="py-2 px-4 text-sm">
+                                            Tambah Stock
+                                        </x-primary-button>
+                                        <x-danger-button x-data=""
                                             x-on:click.prevent="$dispatch('open-modal', 'confirm-product-deletion')"
-                                            x-on:click="$dispatch('set-action', '{{ route('product.destroy', ['code' => $product->code]) }}')"  class="py-2 px-4 text-sm">
+                                            x-on:click="$dispatch('set-action', '{{ route('product.destroy', $product->id) }}')"  class="py-2 px-4 text-sm">
                                             {{ __('Hapus') }}
                                         </x-danger-button>
                                     </div>
-                                    @endhasrole
+
                                 </div>
                             </div>
                         @endforeach

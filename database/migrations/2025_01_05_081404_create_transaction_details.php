@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
-            $table->char('transaction_code', 10);
-            $table->char('product_code', 8);
+            $table->unsignedBigInteger('transaction_id');
+            $table->unsignedBigInteger('product_id');
             $table->integer('qty');
             $table->decimal('price', 10, 2);
             $table->decimal('total', 10, 2);
 
-            $table->foreign('transaction_code')->references('code')->on('transactions');
-            $table->foreign('product_code')->references('code')->on('products');
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
