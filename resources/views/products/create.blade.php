@@ -29,6 +29,11 @@
                 <x-input-error class="mt-2" :messages="$errors->get('price')" />
             </div>
             <div class="max-w-xl">
+                <label for="qty" value="Stock" class="block text-blue-400">Stok</label>
+                <input id="qty" type="number" name="qty" class="w-full p-2 border border-gray-300 rounded" value="{{ old('stock') }}" required min="1" placeholder="Masukkan Stok Produk"/>
+                <x-input-error class="mt-2" :messages="$errors->get('stock')" />
+            </div>
+            <div class="max-w-xl">
                 <label for="category" value="Kategori Produk" class="block text-blue-400">Kategori Produk</label>
                 <x-select-input id="category" name="category_id" class="w-full p-2 border border-gray-300 rounded" required >
                     <option value="">Open this select menu</option>

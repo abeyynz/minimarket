@@ -22,6 +22,7 @@ class ProductController extends Controller
             'name' => 'required|max:255',
             'unit' => 'required|max:5',
             'price' => 'required',
+            'stock' => 'required|integer|min:1',
             'image_url' => 'required|url',
             'category_id' => 'required|exists:categories,id',
         ]);
@@ -50,6 +51,7 @@ class ProductController extends Controller
             'name' => $validate['name'],
             'unit' => $validate['unit'],
             'price' => $validate['price'],
+            'stock' => $validate['stock'],
             'image_url' => $validate['image_url'],
             'category_id' => $validate['category_id'],
             'code' => $newProductCode,
@@ -78,6 +80,7 @@ class ProductController extends Controller
             'name' => 'required|max:255',
             'unit' => 'required|max:5',
             'price' => 'required',
+            'stock' => 'required',
             'image' => 'required',
             'category_id' => 'required|max:5'
         ]);
@@ -115,6 +118,7 @@ class ProductController extends Controller
             'name' => $validate['name'],
             'unit' => $validate['unit'],
             'price' => $validate['price'],
+            'stock' => $validate['stock'],
             'image' => $validate['image'],
             'category_id' => $validate['category_id'],
             'code' => $newProductCode

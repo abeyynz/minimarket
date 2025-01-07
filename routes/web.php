@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransaksiController;
 
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -83,8 +84,13 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
+//transaksi
+Route::get('/transactions', function () {
+    return view('transactions.index');
+});
+Route::get('/transactions/history_transaction', function () {
+    return view('transactions.history_transaction');
+});
 
-// Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
-// Route::get('/transaksi/history', [TransaksiController::class, 'history'])->name('transaksi.history');
 
 require __DIR__.'/auth.php';

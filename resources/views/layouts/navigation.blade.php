@@ -33,6 +33,12 @@
                         {{ __('Product') }}
                     </x-nav-link>
                     @endhasrole
+                    <x-nav-link href="/transactions" :active="request()->is('transactions')">
+                        {{ __('Transaksi') }}
+                    </x-nav-link>
+                    <x-nav-link href="/transactions/history_transaction" :active="request()->is('transactions/history_transaction')">
+                        {{ __('Riwayat Transaksi') }}
+                    </x-nav-link>
                 </div>
             </div>
 

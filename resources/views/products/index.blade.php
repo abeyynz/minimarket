@@ -17,7 +17,7 @@
                                 <div class="p-4">
                                     <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ $product->name }}</h2>
                                     <p class="text-gray-600 dark:text-gray-400 mt-2">Harga: Rp {{ number_format($product->price, 0, ',', '.') }}</p>
-                                    <p class="text-gray-600 dark:text-gray-400 mt-1">Satuan: {{ $product->unit }}</p>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-1"> {{ $product->stock }}{{ $product->unit }}</p>
                                     @hasrole('inventory')
                                     <div>
                                         <x-primary-button tag="a" href="{{ route('product.edit', ['code' => $product->code]) }}"  class="py-2 px-4 text-sm">
