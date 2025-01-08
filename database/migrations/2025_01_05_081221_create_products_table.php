@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamps();
 
 
-            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete();
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
