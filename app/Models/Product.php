@@ -10,13 +10,17 @@ use Spatie\Permission\Traits\HasRoles;
 class Product extends Model
 {
     protected $table = 'products';
-    public $incrementing = false;
-    protected $keyType = 'string';
     use HasFactory, HasRoles;
 
-    protected $fillable = ['code', 'name', 'unit', 'price', 'stock','image_url', 'category_id'];
+    protected $fillable = ['code', 'name', 'unit', 'price', 'image_url', 'category_id', 'stock'];
 
     public function category():BelongsTo{
         return $this->belongsTo(Category::class);
     }
+
+    public function transactionDetails()
+    {
+        return $this->hasMany(TransactionDetail::class);
+    }
+
 }

@@ -34,12 +34,12 @@
                     </x-nav-link>
                     @endhasrole
                     @hasrole('cashier')
-                    <x-nav-link href="/transactions" :active="request()->is('transactions')">
-                        {{ __('Transaksi') }}
+                    <x-nav-link :href="route('transaction')" :active="request()->routeIs('transaction')">
+                        {{ __('Transaction') }}
                     </x-nav-link>
-                    <x-nav-link href="/transactions/history_transaction" :active="request()->is('transactions/history_transaction')">
-                        {{ __('Riwayat Transaksi') }}
-                    </x-nav-link>
+                    {{-- <x-nav-link :href="route('historytransaction')" :active="request()->routeIs('historytransaction')">
+                        {{ __('History') }}
+                    </x-nav-link> --}}
                     @endhasrole
                 </div>
             </div>
