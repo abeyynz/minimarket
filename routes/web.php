@@ -83,13 +83,13 @@ Route::group(['middleware' => ['auth', 'role:inventory']], function () {
 //     return view('tambah'); // Menampilkan form untuk membuat post baru
 // })->name('products.tambah');
 
-//transaksi
-// Route::get('/transactions', function () {
-//     return view('transactions.index');
-// });
-// Route::get('/transactions/history_transaction', function () {
-//     return view('transactions.history_transaction');
-// });
+// transaksi
+Route::get('/transactions', function () {
+    return view('transactions.index');
+});
+Route::get('/transactions/history_transaction', function () {
+    return view('transactions.history_transaction');
+});
 
 
 require __DIR__.'/auth.php';

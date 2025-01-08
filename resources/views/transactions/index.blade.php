@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center bg-white text-blue-400 dark:text-gray-100 py-4 px-6">
+        <div class="flex justify-between items-center bg-white dark:bg-gray-700 text-blue-400 dark:text-gray-300 py-4 px-6">
             <h2 class="font-semibold text-xl leading-tight">
                 {{ __('Cabang Cianjur') }}
             </h2>
@@ -10,13 +10,13 @@
     <div class="max-w-7xl mx-auto mt-6 px-4">
     <div class="grid grid-cols-3 gap-6">
         <!-- Pilih Produk -->
-        <div class="col-span-2 border-8 rounded-lg shadow-md border-blue-300 p-10 bg-blue-100">
+        <div class="col-span-2 border-8 rounded-lg shadow-md border-blue-300 p-10 bg-blue-100 dark:border-gray-800 dark:bg-gray-700">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-xl text-blue-600 font-bold dark:text-gray-100">Pilih Produk</h2>
                 <div class="relative flex items-center">
                     <input
                         type="text"
-                        class="w-full border border-blue-400 bg-white rounded p-2 pl-10"
+                        class="w-full border border-blue-400 dark:border-gray-700 bg-white dark:bg-gray-900 rounded p-2 pl-10"
                         placeholder="Cari produk..."
                     />
                     <svg 
@@ -31,15 +31,13 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
                 <!-- Produk 1 -->
-                <div class="border rounded-lg shadow-md p-3 bg-blue-300">
+                <div class="border rounded-lg shadow-md p-3 bg-blue-300 dark:bg-gray-700">
                     <img src="https://d3bbrrd0qs69m4.cloudfront.net/images/product/apotek_online_k24klik_2022122302235823085_UHT-180-ML---JEJU-CHOCOLATE.jpg" alt="SunCo" class="w-full h-48 object-cover mb-4" />
                     <div class="product-details text-gray-700 dark:text-gray-100 flex flex-col items-center justify-center">
                         <h2 class="card-title">Indomilk Choco Latte</h2>
                         <h4 class="card-price">Rp 9000</h4>
                         <div class="flex items-center">
-                            <div class="input-wrapper flex-1">
-                                <input type="number" id="quantity-SKT001" class="w-full p-2 border border-gray-300 rounded" placeholder="Jumlah :" min="0">
-                            </div>
+                            <x-text-input id="qty" type="number" name="qty" class="mt-1 block w-full" required placeholder="Jumlah :"/>
                             <div class="ml-2">
                                 <input type="checkbox" />
                             </div>
@@ -47,15 +45,13 @@
                     </div>
                 </div>
                 <!-- Produk 2 -->
-                <div class="border rounded-lg shadow-md p-3 bg-blue-300">
+                <div class="border rounded-lg shadow-md p-3 bg-blue-300 dark:bg-gray-700">
                     <img src="https://solvent-production.s3.amazonaws.com/media/images/products/2021/10/DSC_0212_dP8qhmN.JPG" alt="Bimoli" class="w-full h-48 object-cover mb-4" />
                     <div class="product-details text-gray-700 dark:text-gray-100 flex flex-col items-center justify-center">
                         <h2 class="card-title">Monde</h2>
                         <h4 class="card-price">Rp 6000</h4>
                         <div class="flex items-center">
-                            <div class="input-wrapper flex-1">
-                                <input type="number" id="quantity-MR-001" class="w-full p-2 border border-gray-300 rounded" placeholder="Jumlah :" min="0">
-                            </div>
+                            <x-text-input id="qty" type="number" name="qty" class="mt-1 block w-full" required placeholder="Jumlah :"/>
                             <div class="ml-2">
                                 <input type="checkbox" />
                             </div>
@@ -63,15 +59,13 @@
                     </div>
                 </div>
                 <!-- Produk 3 -->
-                <div class="border rounded-lg shadow-md p-3 bg-blue-300">
+                <div class="border rounded-lg shadow-md p-3 bg-blue-300 dark:bg-gray-700">
                     <img src="https://c.alfagift.id/product/1/A7708190002167_A7708190002167_20230919103313565_base.jpg" alt="Sania" class="w-full h-48 object-cover mb-4" />
                     <div class="product-details text-gray-700 dark:text-gray-100 flex flex-col items-center justify-center">
                         <h2 class="card-title">Jetz</h2>
                         <h4 class="card-price">Rp 7000</h4>
                         <div class="flex items-center">
-                            <div class="input-wrapper flex-1 ">
-                                <input type="number" id="quantity-MR-002" class="w-full p-2 border border-gray-300 rounded" placeholder="Jumlah :" min="0">
-                            </div>
+                            <x-text-input id="qty" type="number" name="qty" class="mt-1 block w-full" required placeholder="Jumlah :"/>
                             <div class="ml-2">
                                 <input type="checkbox" />
                             </div>
@@ -83,29 +77,25 @@
         </div>
 
         <!-- Produk yang Dipilih -->
-        <div class="col-span-1 border-8 rounded-lg shadow-md border-blue-300 p-10 bg-white">
+        <div class="col-span-1 border-8 rounded-lg shadow-md border-blue-300 dark:border-gray-800 p-10 bg-white dark:bg-gray-700">
             <h1 class="text-2xl text-blue-600 dark:text-gray-100 flex flex-col items-center justify-center font-bold mb-4">Transaksi</h1>
                 <div class="max-w-xl">
-                    <label for="name" class="block text-blue-400 dark:text-gray-100 font-bold">Produk yang dipilih : </label>
-                    <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded">
+                    <x-input-label for="name" class="block text-blue-400 dark:text-gray-100 font-bold" value="Produk yang dipilih : "/>
+                    <x-text-input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded" />
                 </div>
                 <div class="max-w-xl">
-                    <label for="price" class="block text-blue-400 dark:text-gray-100 font-bold">Total Bayar : </label>
-                    <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded">
+                    <x-input-label for="price" class="block text-blue-400 dark:text-gray-100 font-bold" value="Total Bayar : "/>
+                    <x-text-input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded" />
                 </div>
                 <div class="max-w-xl">
-                    <label for="price" class="block text-blue-400 dark:text-gray-100 font-bold">Uang Tunai : </label>
-                    <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded">
+                    <x-input-label for="price" class="block text-blue-400 dark:text-gray-100 font-bold" value="Uang Tunai : " />
+                    <x-text-input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded" />
                 </div>
                 <div class="max-w-xl">
-                    <label for="price" class="block text-blue-400 dark:text-gray-100 font-bold">Uang Kembali : </label>
-                    <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded">
+                    <x-input-label for="price" class="block text-blue-400 dark:text-gray-100 font-bold" value="Uang Kembali : "/>
+                    <x-text-input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded"/>
                 </div>
-            <button
-                class="bg-blue-600 hover:bg-blue-400 text-white dark:text-gray-100 py-2 px-4 rounded mt-4"
-            >
-                Bayar
-            </button>
+                <x-primary-button value="true">Tambah</x-primary-button>
         </div>
     </div>
 </div>
