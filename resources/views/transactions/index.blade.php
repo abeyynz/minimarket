@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center text-blue-400 py-4 px-6">
+        <div class="flex justify-between items-center bg-white dark:bg-gray-700 text-blue-400 dark:text-gray-300 py-4 px-6">
             <h2 class="font-semibold text-xl leading-tight">
                 {{ __('Cabang Cianjur') }}
             </h2>
@@ -48,10 +48,10 @@
                     </div>
                 </div>
                 <div class="col-span-1 border rounded-lg shadow-md p-6 bg-white dark:bg-gray-700">
-                    <h2 class="text-xl text-blue-600 font-bold mb-4">Transaksi</h2>
+                    <h2 class="text-xl text-blue-600 dark:text-gray-100 flex flex-col items-center justify-center font-bold mb-4">Transaksi</h2>
 
                     <div id="selected-products" class="mb-4">
-                        <h3 class="font-bold mb-2">Produk yang Dipilih:</h3>
+                        <h3 class=" text-blue-600 dark:text-gray-100 font-bold mb-2">Produk yang Dipilih : </h3>
                         <ul id="product-list" class="list-none p-0"></ul>
                     </div>
 
@@ -103,8 +103,8 @@
                         const listItem = document.createElement('li');
                         listItem.classList.add('mb-2', 'flex', 'justify-between', 'items-center');
                         listItem.innerHTML = `
-                            <span class="font-bold">${truncatedName}</span>
-                            <span class="text-right"> ${qty} x Rp ${formattedPrice}</span>
+                            <span class="text-gray-100 font-bold">${truncatedName}</span>
+                            <span class="text-gray-100 text-right"> ${qty} x Rp ${formattedPrice}</span>
                         `;
                         productList.appendChild(listItem);
                     }

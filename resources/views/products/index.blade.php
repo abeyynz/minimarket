@@ -12,12 +12,12 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         @foreach ($products as $product)
-                            <div class="border rounded-lg shadow-md p-3 bg-blue-300 dark:bg-white">
+                            <div class="border rounded-lg shadow-md p-3 bg-blue-300 dark:bg-gray-700">
                             <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-52 object-cover mb-4">
                                 <div class="p-2">
-                                    <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-900  text-center">{{ $product->name }}</h2>
-                                    <p class="text-gray-600 dark:text-gray-900 mt-2">Harga: Rp {{ number_format($product->price, 0, ',', '.') }}</p>
-                                    <p class="text-gray-600 dark:text-gray-900 mt-1">Stock: {{ $product->stock }} {{ $product->unit }}</p>
+                                    <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100  text-center">{{ $product->name }}</h2>
+                                    <p class="text-gray-600 dark:text-gray-100 mt-2">Harga: Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                                    <p class="text-gray-600 dark:text-gray-100 mt-1">Stock: {{ $product->stock }} {{ $product->unit }}</p>
                                 </div>
                                 <div class="flex items-center space-x-2 ">
                                     <x-primary-button tag="a" href="{{ route('product.edit', $product->id) }}"  class=" py-4 px-4 text-sm">
