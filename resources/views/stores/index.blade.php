@@ -10,36 +10,39 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @hasrole('owner')
-                    <x-primary-button tag="a" href="{{ route('store.create') }}">Tambah Cabang</x-primary-button>
+                    <x-primary-button tag="a" href="{{ route('store.create') }}" class="mb-6">
+                        Tambah Cabang
+                    </x-primary-button>
                     @endhasrole
-                    <x-table>
-                        <x-slot name="header">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Lokasi</th>
-                                @hasrole('owner')
-                                <th scope="col">Aksi</th>
-                                @endhasrole
-                            </tr>
-                        </x-slot>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @foreach ($stores as $store)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $store->name }}</td>
-                                <td>{{ $store->location }}</td>
+                            <div class="bg-white dark:bg-gray-700 rounded-lg shadow-2xl hover:shadow-3xl transform transition-all duration-300 overflow-hidden">
+                                <div class="overflow-hidden h-48 bg-gray-300 dark:bg-gray-600 mb-4">
+                                    <img src="{{ $store->image_url }}" alt="{{ $store->name }}" class="w-full h-full object-cover object-center rounded-t-lg">
+                                </div>
+                                
+                                <div class="p-6">
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ $store->name }}</h3>
+                                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{ $store->location }}</p>
+                                </div>
+
                                 @hasrole('owner')
-                                <td>
-                                    <x-primary-button tag="a"
-                                        href="{{ route('store.edit', $store->id) }}">Edit</x-primary-button>
+                                <div class="p-4 bg-gray-50 dark:bg-gray-800 flex justify-between items-center border-t border-gray-200 dark:border-gray-600">
+                                    <x-primary-button tag="a" href="{{ route('store.edit', $store->id) }}" class="text-sm">
+                                        Edit
+                                    </x-primary-button>
                                     <x-danger-button x-data=""
                                         x-on:click.prevent="$dispatch('open-modal', 'confirm-store-deletion')"
-                                        x-on:click="$dispatch('set-action', '{{ route('store.destroy', $store->id) }}')">{{ __('Delete') }}</x-danger-button>
-                                </td>
+                                        x-on:click="$dispatch('set-action', '{{ route('store.destroy', $store->id) }}')"
+                                        class="text-sm">
+                                        {{ __('Hapus Toko') }}
+                                    </x-danger-button>
+                                </div>
                                 @endhasrole
-                            </tr>
+                            </div>
                         @endforeach
-                    </x-table>
+                    </div>
 
                     <x-modal name="confirm-store-deletion" focusable maxWidth="xl">
                         <form method="post" x-bind:action="action" class="p-6">

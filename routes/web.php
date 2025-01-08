@@ -4,11 +4,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TransaksiController;
-
-use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/category', [CategoryController::class, 'index'])->name('category');
     Route::get('/product', [ProductController::class, 'index'])->name('product');
+    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
 });
 
 Route::group(['middleware' => ['auth', 'role:owner']], function () {
@@ -59,37 +58,9 @@ Route::group(['middleware' => ['auth', 'role:inventory']], function () {
     Route::patch('/product/{id}/updateStock', [ProductController::class, 'updateStock'])->name('product.updateStock');
 });
 
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/dashboard/history-transaksi', [TransaksiController::class, 'index'])->name('history-transaksi');
-// });
-
-// Route::get('/transactions', [TransaksiController::class, 'index']);
-// Route::post('/transactions', [TransaksiController::class, 'store']);
-
-// // Rute untuk kategori
-// Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-// Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-
-// Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-
-
-// Route::get('/index', function () {
-//     $posts = Post::all(); // Mengambil semua data dari tabel 'posts'
-//     return view('product.index', compact('posts')); // Mengarahkan ke 'about.blade.php'
-// })->name('product.index');
-
-// Route untuk menambah post baru (create)
-// Route::get('/tambah', function () {
-//     return view('tambah'); // Menampilkan form untuk membuat post baru
-// })->name('products.tambah');
-
-//transaksi
-// Route::get('/transactions', function () {
-//     return view('transactions.index');
-// });
-// Route::get('/transactions/history_transaction', function () {
-//     return view('transactions.history_transaction');
-// });
-
+Route::group(['middleware' => ['auth', 'role:cashier']], function () {
+    Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
+    Route::get('/historytransaction', [TransactionController::class, 'history'])->name('transaction.history');
+});
 
 require __DIR__.'/auth.php';

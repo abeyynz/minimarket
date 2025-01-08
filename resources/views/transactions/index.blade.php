@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center bg-white text-blue-400 dark:text-gray-100 py-4 px-6">
+        <div class="flex justify-between items-center text-blue-400 py-4 px-6">
             <h2 class="font-semibold text-xl leading-tight">
                 {{ __('Cabang Cianjur') }}
             </h2>
@@ -19,8 +19,8 @@
                         class="w-full border border-blue-400 bg-white rounded p-2 pl-10"
                         placeholder="Cari produk..."
                     />
-                    <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
                         class="absolute left-3 w-5 h-5 text-gray-500"
                         viewBox="0 0 50 50"
                     >
@@ -46,69 +46,69 @@
                         </div>
                     </div>
                 </div>
-                <!-- Produk 2 -->
-                <div class="border rounded-lg shadow-md p-3 bg-blue-300">
-                    <img src="https://solvent-production.s3.amazonaws.com/media/images/products/2021/10/DSC_0212_dP8qhmN.JPG" alt="Bimoli" class="w-full h-48 object-cover mb-4" />
-                    <div class="product-details text-gray-700 dark:text-gray-100 flex flex-col items-center justify-center">
-                        <h2 class="card-title">Monde</h2>
-                        <h4 class="card-price">Rp 6000</h4>
-                        <div class="flex items-center">
-                            <div class="input-wrapper flex-1">
-                                <input type="number" id="quantity-MR-001" class="w-full p-2 border border-gray-300 rounded" placeholder="Jumlah :" min="0">
-                            </div>
-                            <div class="ml-2">
-                                <input type="checkbox" />
-                            </div>
-                        </div>
+                <div class="col-span-1 border rounded-lg shadow-md p-6 bg-white dark:bg-gray-700">
+                    <h2 class="text-xl text-blue-600 font-bold mb-4">Transaksi</h2>
+
+                    <div id="selected-products" class="mb-4">
+                        <h3 class="font-bold mb-2">Produk yang Dipilih:</h3>
+                        <ul id="product-list" class="list-none p-0"></ul>
+                    </div>
+
+                    <div class="text-center">
+                        <button
+                            type="submit"
+                            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                        >
+                            Proses Pesanan
+                        </button>
                     </div>
                 </div>
-                <!-- Produk 3 -->
-                <div class="border rounded-lg shadow-md p-3 bg-blue-300">
-                    <img src="https://c.alfagift.id/product/1/A7708190002167_A7708190002167_20230919103313565_base.jpg" alt="Sania" class="w-full h-48 object-cover mb-4" />
-                    <div class="product-details text-gray-700 dark:text-gray-100 flex flex-col items-center justify-center">
-                        <h2 class="card-title">Jetz</h2>
-                        <h4 class="card-price">Rp 7000</h4>
-                        <div class="flex items-center">
-                            <div class="input-wrapper flex-1 ">
-                                <input type="number" id="quantity-MR-002" class="w-full p-2 border border-gray-300 rounded" placeholder="Jumlah :" min="0">
-                            </div>
-                            <div class="ml-2">
-                                <input type="checkbox" />
-                            </div>
-                        </div>
+
+
+                <div class="col-span-3 mt-4">
+                    <div class="flex justify-center">
+                        {{ $products->links() }}
                     </div>
                 </div>
-               
             </div>
-        </div>
-
-        <!-- Produk yang Dipilih -->
-        <div class="col-span-1 border-8 rounded-lg shadow-md border-blue-300 p-10 bg-white">
-            <h1 class="text-2xl text-blue-600 dark:text-gray-100 flex flex-col items-center justify-center font-bold mb-4">Transaksi</h1>
-                <div class="max-w-xl">
-                    <label for="name" class="block text-blue-400 dark:text-gray-100 font-bold">Produk yang dipilih : </label>
-                    <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded">
-                </div>
-                <div class="max-w-xl">
-                    <label for="price" class="block text-blue-400 dark:text-gray-100 font-bold">Total Bayar : </label>
-                    <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded">
-                </div>
-                <div class="max-w-xl">
-                    <label for="price" class="block text-blue-400 dark:text-gray-100 font-bold">Uang Tunai : </label>
-                    <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded">
-                </div>
-                <div class="max-w-xl">
-                    <label for="price" class="block text-blue-400 dark:text-gray-100 font-bold">Uang Kembali : </label>
-                    <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded">
-                </div>
-            <button
-                class="bg-blue-600 hover:bg-blue-400 text-white dark:text-gray-100 py-2 px-4 rounded mt-4"
-            >
-                Bayar
-            </button>
-        </div>
+        </form>
     </div>
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxes = document.querySelectorAll('input[name="product_ids[]"]');
+            const productList = document.getElementById('product-list');
 
-    
+            checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener('change', function () {
+                    updateSelectedProducts();
+                });
+            });
+
+            function updateSelectedProducts() {
+                productList.innerHTML = '';
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        const productId = checkbox.value;
+                        const productName = checkbox.getAttribute('data-name');
+                        const productPrice = checkbox.getAttribute('data-price');
+                        const qtyInput = document.querySelector(`input[name="qty[${productId}]"]`);
+                        const qty = qtyInput ? qtyInput.value : 1;
+
+                        const nameWords = productName.split(" ").slice(0, 10).join(" ");
+                        const truncatedName = (productName.split(" ").length > 10) ? nameWords + '...' : nameWords;
+
+                        const formattedPrice = parseFloat(productPrice).toLocaleString('id-ID');
+
+                        const listItem = document.createElement('li');
+                        listItem.classList.add('mb-2', 'flex', 'justify-between', 'items-center');
+                        listItem.innerHTML = `
+                            <span class="font-bold">${truncatedName}</span>
+                            <span class="text-right"> ${qty} x Rp ${formattedPrice}</span>
+                        `;
+                        productList.appendChild(listItem);
+                    }
+                });
+            }
+        });
+    </script>
 </x-app-layout>
