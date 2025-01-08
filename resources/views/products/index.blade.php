@@ -3,7 +3,7 @@
         <div class="flex items-center ">
             <button
                 onclick="window.location.href='{{ route('product.create') }}'"
-                class="bg-blue-400 hover:bg-blue-300 text-white hover:text-white py-2 px-4 rounded">
+                class="bg-blue-400 dark:bg-blue-900 hover:bg-blue-300 text-white dark:text-white dark:hover:bg-blue-700 py-2 px-4 rounded">
                 Tambah Produk
             </button>
         </div>
@@ -12,23 +12,23 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         @foreach ($products as $product)
-                            <div class="border rounded-lg shadow-md p-3 bg-blue-300">
+                            <div class="border rounded-lg shadow-md p-3 bg-blue-300 dark:bg-white">
                             <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-52 object-cover mb-4">
                                 <div class="p-2">
-                                    <h2 class="text-lg font-semibold text-gray-900  text-center">{{ $product->name }}</h2>
+                                    <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-900  text-center">{{ $product->name }}</h2>
                                     <p class="text-gray-600 dark:text-gray-900 mt-2">Harga: Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                                     <p class="text-gray-600 dark:text-gray-900 mt-1">Stock: {{ $product->stock }} {{ $product->unit }}</p>
                                 </div>
                                 <div class="flex items-center space-x-2 ">
-                                    <x-primary-button tag="a" href="{{ route('product.edit', $product->id) }}"  class=" px-4 text-sm">
+                                    <x-primary-button tag="a" href="{{ route('product.edit', $product->id) }}"  class=" py-4 px-4 text-sm">
                                         Ubah
                                     </x-primary-button>
-                                    <x-primary-button tag="a" href="{{ route('product.addStock',  $product->id) }}" class="py-2 px-4 text-sm text-center">
-                                        Tambah Stock
+                                    <x-primary-button tag="a" href="{{ route('product.addStock',  $product->id) }}" class=" py-2 px-4 text-sm text-center">
+                                        Tambah Stok
                                     </x-primary-button>
                                     <x-danger-button x-data=""
                                         x-on:click.prevent="$dispatch('open-modal', 'confirm-product-deletion')"
-                                        x-on:click="$dispatch('set-action', '{{ route('product.destroy', $product->id) }}')"  class="py-2 px-4 text-sm mr-5">
+                                        x-on:click="$dispatch('set-action', '{{ route('product.destroy', $product->id) }}')"  class="py-4 px-4 text-sm mr-5">
                                         {{ __('Hapus') }}
                                     </x-danger-button>
                                 </div>

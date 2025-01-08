@@ -8,42 +8,42 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto mt-6 px-4">
-        <form action="{{ route('transaction.store') }}" method="POST" id="transaction-form">
-            @csrf
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="col-span-2 md:col-span-2 lg:col-span-2">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @foreach ($products as $product)
-                            <div class="border rounded-lg shadow-md p-4 bg-blue-100 dark:bg-gray-700">
-                                <div class="text-center mb-4">
-                                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-52 object-cover rounded-lg">
-                                </div>
-                                <div class="text-center text-gray-700 dark:text-gray-100">
-                                    <h3 class="font-bold text-xl">{{ $product->name }}</h3>
-                                    <p class="text-sm">Stok: {{ $product->stock }}</p>
-                                    <p class="text-lg font-semibold">Rp {{ number_format($product->price, 2) }}</p>
-                                    <div class="mt-4 flex justify-center items-center">
-                                        <input
-                                            type="checkbox"
-                                            name="product_ids[]"
-                                            value="{{ $product->id }}"
-                                            data-name="{{ $product->name }}"
-                                            data-price="{{ $product->price }}"
-                                            class="mr-2"
-                                        />
-                                        <input
-                                            type="number"
-                                            name="qty[{{ $product->id }}]"
-                                            min="1"
-                                            max="{{ $product->stock }}"
-                                            value="1"
-                                            class="w-16 bg-slate-800 text-center border rounded"
-                                            data-price="{{ $product->price }}"
-                                        />
-                                    </div>
-                                </div>
+    <div class="grid grid-cols-3 gap-6">
+        <!-- Pilih Produk -->
+        <div class="col-span-2 border-8 rounded-lg shadow-md border-blue-300 p-10 bg-blue-100">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl text-blue-600 font-bold dark:text-gray-100">Pilih Produk</h2>
+                <div class="relative flex items-center">
+                    <input
+                        type="text"
+                        class="w-full border border-blue-400 bg-white rounded p-2 pl-10"
+                        placeholder="Cari produk..."
+                    />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="absolute left-3 w-5 h-5 text-gray-500"
+                        viewBox="0 0 50 50"
+                    >
+                        <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+                <!-- Produk 1 -->
+                <div class="border rounded-lg shadow-md p-3 bg-blue-300">
+                    <img src="https://d3bbrrd0qs69m4.cloudfront.net/images/product/apotek_online_k24klik_2022122302235823085_UHT-180-ML---JEJU-CHOCOLATE.jpg" alt="SunCo" class="w-full h-48 object-cover mb-4" />
+                    <div class="product-details text-gray-700 dark:text-gray-100 flex flex-col items-center justify-center">
+                        <h2 class="card-title">Indomilk Choco Latte</h2>
+                        <h4 class="card-price">Rp 9000</h4>
+                        <div class="flex items-center">
+                            <div class="input-wrapper flex-1">
+                                <input type="number" id="quantity-SKT001" class="w-full p-2 border border-gray-300 rounded" placeholder="Jumlah :" min="0">
                             </div>
-                        @endforeach
+                            <div class="ml-2">
+                                <input type="checkbox" />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-span-1 border rounded-lg shadow-md p-6 bg-white dark:bg-gray-700">
