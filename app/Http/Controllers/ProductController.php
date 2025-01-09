@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function index(){
-        $data['products'] = Product::all();
+        $data['products'] = Product::where('store_id', Auth::user()->store_id)->get();
         return view('products.index', $data);
     }
     public function create(){
@@ -42,10 +43,11 @@ class ProductController extends Controller
             'name' => $validate['name'],
             'unit' => $validate['unit'],
             'price' => $validate['price'],
-            'stock' => 0,
             'image_url' => $validate['image_url'],
+            'stock' => 0,
             'category_id' => $validate['category_id'],
             'code' => $newProductCode,
+            'store_id' => Auth::user()->store_id,
         ]);
         if($product){
             $notification[] = array(
@@ -66,11 +68,13 @@ class ProductController extends Controller
         return view('products.edit', $data);
     }
     public function update(Request $request, string $id){
-        $product = Product::where('id', $id)->firstOrFail();
+        $product = Product::where('id', $id)->where('store_id', Auth::user()->store_id)->firstOrFail();
+
         $validate = $request->validate([
             'name' => 'required|max:255',
             'unit' => 'required|max:5',
             'price' => 'required',
+            'stock' => 'required',
             'image_url' => 'required|url',
             'category_id' => 'required|max:5'
         ]);
@@ -108,6 +112,7 @@ class ProductController extends Controller
             'name' => $validate['name'],
             'unit' => $validate['unit'],
             'price' => $validate['price'],
+            'stock' => $validate['stock'],
             'image_url' => $validate['image_url'],
             'category_id' => $validate['category_id'],
             'code' => $newProductCode
@@ -155,13 +160,16 @@ class ProductController extends Controller
         }
         return redirect()->route('product')->with($notification);
     }
-    public function destroy(string $id){
-        $product = product::findOrFail($id);
+    public function destroy(string $id)
+    {
+        $product = Product::where('id', $id)->where('store_id', Auth::user()->store_id)->firstOrFail();
         $product->delete();
+
         $notification = array(
             'message' => 'produk berhasil dihapus',
             'alert-type' => 'success'
         );
         return redirect()->route('product')->with($notification);
     }
+
 }

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->date('date');
             $table->decimal('total', 10, 2);
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('store_id');
+
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }

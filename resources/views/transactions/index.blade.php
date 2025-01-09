@@ -61,7 +61,6 @@
                                 </div>
                             </div>
                         @empty
-                            <!-- Pesan jika produk tidak ditemukan -->
                             <div class="col-span-3 text-center">
                                 <p class="text-lg text-gray-500 dark:text-gray-400">
                                     Tidak ada produk yang ditemukan.
@@ -77,7 +76,10 @@
                         <h3 class=" text-blue-600 dark:text-gray-100 font-bold mb-2">Produk yang Dipilih : </h3>
                         <ul id="product-list" class="list-none p-0"></ul>
                     </div>
-
+                    <div class="text-center flex justify-between items-center mt-4">
+                        <span class="font-bold text-lg dark:text-gray-100">Total Bayar:</span>
+                        <span id="total-amount" class="font-bold text-xl text-blue-600 dark:text-gray-100">Rp 0</span>
+                    </div>
                     <div class="text-center">
                         <x-danger-button
                             x-data
@@ -109,6 +111,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const checkboxes = document.querySelectorAll('input[name="product_ids[]"]');
             const productList = document.getElementById('product-list');
+            const totalAmountElement = document.getElementById('total-amount');
 
             checkboxes.forEach((checkbox) => {
                 checkbox.addEventListener('change', function () {
@@ -116,21 +119,33 @@
                 });
             });
 
+            function attachQtyListeners() {
+                const qtyInputs = document.querySelectorAll('input[name^="qty["]');
+                qtyInputs.forEach((input) => {
+                    input.addEventListener('input', function () {
+                        updateSelectedProducts();
+                    });
+                });
+            }
+
             function updateSelectedProducts() {
                 productList.innerHTML = '';
+                let totalAmount = 0;
+
                 checkboxes.forEach((checkbox) => {
                     if (checkbox.checked) {
                         const productId = checkbox.value;
                         const productName = checkbox.getAttribute('data-name');
-                        const productPrice = checkbox.getAttribute('data-price');
+                        const productPrice = parseFloat(checkbox.getAttribute('data-price'));
                         const qtyInput = document.querySelector(`input[name="qty[${productId}]"]`);
-                        const qty = qtyInput ? qtyInput.value : 1;
+                        const qty = qtyInput ? parseInt(qtyInput.value) : 1;
+
+                        totalAmount += productPrice * qty;
 
                         const nameWords = productName.split(" ").slice(0, 10).join(" ");
                         const truncatedName = (productName.split(" ").length > 10) ? nameWords + '...' : nameWords;
 
-                        const formattedPrice = parseFloat(productPrice).toLocaleString('id-ID');
-
+                        const formattedPrice = productPrice.toLocaleString('id-ID');
                         const listItem = document.createElement('li');
                         listItem.classList.add('mb-2', 'flex', 'justify-between', 'items-center');
                         listItem.innerHTML = `
@@ -140,7 +155,11 @@
                         productList.appendChild(listItem);
                     }
                 });
+
+                totalAmountElement.textContent = `Rp ${totalAmount.toLocaleString('id-ID')}`;
+                attachQtyListeners();
             }
+            attachQtyListeners();
         });
     </script>
 </x-app-layout>

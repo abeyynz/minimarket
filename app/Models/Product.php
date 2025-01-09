@@ -12,10 +12,14 @@ class Product extends Model
     protected $table = 'products';
     use HasFactory, HasRoles;
 
-    protected $fillable = ['code', 'name', 'unit', 'price', 'image_url', 'category_id', 'stock'];
+    protected $fillable = ['code', 'name', 'unit', 'price', 'image_url', 'category_id', 'stock', 'store_id'];
 
     public function category():BelongsTo{
         return $this->belongsTo(Category::class);
+    }
+
+    public function store():BelongsTo{
+        return $this->belongsTo(Store::class);
     }
 
     public function transactionDetails()

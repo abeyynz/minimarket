@@ -13,4 +13,13 @@ class Store extends Model
     use HasFactory, HasRoles;
 
     protected $fillable = ['name', 'location'];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

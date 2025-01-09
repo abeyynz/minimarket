@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center bg-white dark:bg-gray-700 text-blue-400 dark:text-gray-300 py-4 px-6">
             <h2 class="font-semibold text-xl leading-tight">
-                {{ __('Cabang Cianjur') }}
+                {{ __('Cabang ' . $storeName) }}
             </h2>
 
             <a href="{{ route('history.print') }}" class="bg-green-600 hover:bg-green-400 text-white dark:text-gray-100 py-1 px-4 rounded">

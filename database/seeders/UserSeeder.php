@@ -14,31 +14,38 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name' => 'owner',
+            'name' => 'Jayusman',
             'email' => 'owner@gmail.com',
             'username' => 'owner',
             'password' => 'password',
         ])->assignRole('owner');
         User::factory()->create([
-            'name' => 'manager',
+            'name' => 'Kevin',
             'email' => 'manager@gmail.com',
             'username' => 'manager',
             'password' => 'password',
             'store_id' => 1,
         ])->assignRole('manager');
         User::factory()->create([
-            'name' => 'cashier',
+            'name' => 'Asta',
             'email' => 'cashier@gmail.com',
             'username' => 'cashier',
             'password' => 'password',
             'store_id' => 1,
         ])->assignRole('cashier');
         User::factory()->create([
-            'name' => 'inventory',
+            'name' => 'Kevin',
             'email' => 'inventory@gmail.com',
             'username' => 'inventory',
             'password' => 'password',
             'store_id' => 1,
+        ])->assignRole('inventory');
+        User::factory()->create([
+            'name' => 'Mark',
+            'email' => 'inventory2@gmail.com',
+            'username' => 'inventory2',
+            'password' => 'password',
+            'store_id' => 2,
         ])->assignRole('inventory');
     }
 }

@@ -8,33 +8,42 @@ use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
-
-
     public function index(Request $request)
     {
+        $storeName = Auth::user()->store->name;
         $search = $request->get('search_product', '');
-        $products = Product::where('stock', '>', 0)
+        $products = Product::where('store_id', Auth::user()->store_id)
+            ->where('stock', '>', 0)
             ->where(function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%")
                       ->orWhere('code', 'like', "%$search%");
             })
             ->paginate(9);
 
-        return view('transactions.index', compact('products', 'search'));
+        return view('transactions.index', compact('products', 'search', 'storeName'));
     }
     public function history(Request $request)
     {
-        $data['transactions'] = Transaction::all();
-        $data['transaction_details'] = TransactionDetail::all();
-        return view('transactions.history', $data);
+        $storeName = Auth::user()->store->name;
+        $data['transactions'] = Transaction::where('store_id', Auth::user()->store_id)
+            ->get();
+
+        $data['transaction_details'] = TransactionDetail::whereHas('transaction', function ($query) {
+            $query->where('store_id', Auth::user()->store_id);
+        })->get();
+        return view('transactions.history', $data, compact('storeName'));
     }
 
     public function detail(String $id)
     {
-        $transaction = Transaction::with('user')->findOrFail($id);
+        $transaction = Transaction::where('id', $id)
+            ->where('store_id', Auth::user()->store_id)
+            ->with('user')
+            ->firstOrFail();
         $transaction_details = TransactionDetail::with('product')
             ->where('transaction_id', $id)
             ->get();
@@ -64,7 +73,8 @@ class TransactionController extends Controller
             'code' => 'TRX-' . strtoupper(Str::random(6)),
             'date' => now(),
             'total' => $total,
-            'user_id' => auth()->id(),
+            'store_id' => Auth::user()->store_id,
+            'user_id' => Auth::user()->id
         ]);
 
         foreach ($products as $product) {
@@ -82,10 +92,12 @@ class TransactionController extends Controller
         return redirect()->route('transaction')->with('success', 'Transaksi berhasil disimpan!');
     }
     public function print(){
-        $data['transactions'] = Transaction::all();
+        $data['transactions'] = Transaction::where('store_id', Auth::user()->store_id)
+            ->get();
         $pdf = Pdf::loadView('transactions.print', $data);
         return $pdf->stream('RiwayatTransaksi.pdf');
     }
+
     public function printDetail($id)
     {
         $transaction = Transaction::with('user')->findOrFail($id);
