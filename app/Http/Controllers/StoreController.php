@@ -55,6 +55,7 @@ class StoreController extends Controller
         $validate = $request->validate([
             'name' => 'required|unique:stores,name,' . $id,
             'location' => 'required|string|max:255',
+            'image_url' => 'required|url',
         ]);
 
         $store->update($validate);

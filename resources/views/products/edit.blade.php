@@ -12,10 +12,10 @@
         </div>
     </x-slot>
 
-    
+
     <div class="flex-grow container mx-auto mt-6 px-4">
 
-        <form method="post" action="{{ route('product.update', $product->id) }}" enctype="multipart/form-data" 
+        <form method="post" action="{{ route('product.update', $product->id) }}" enctype="multipart/form-data"
             class="mt-6 space-y-4">
             @method('PATCH')
             @csrf
@@ -26,10 +26,16 @@
                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
             <div class="max-w-xl">
-                <x-input-label for="unit" value="Satuan" />
+                <x-input-label for="unit" value="satuan" />
                 <x-text-input id="unit" type="text" name="unit" class="mt-1 block w-full"
                     value="{{ old('unit', $product->unit) }}" required />
                 <x-input-error class="mt-2" :messages="$errors->get('unit')" />
+            </div>
+            <div class="max-w-xl">
+                <x-input-label for="stock" value="Stock" />
+                <x-text-input id="stock" type="number" name="stock" class="mt-1 block w-full"
+                    value="{{ old('stock', $product->stock) }}" required readonly />
+                <x-input-error class="mt-2" :messages="$errors->get('stock')" />
             </div>
             <div class="max-w-xl">
                 <x-input-label for="price" value="Harga" />
@@ -51,8 +57,9 @@
                 </x-select-input>
             </div>
             <div class="max-w-xl">
-                <x-input-label for="image_url" value="URL Gambar"/>
-                <x-text-input type="text" name="image_url" id="image_url" class="w-full mt-1 block" required />
+                <x-input-label for="image_url" value="URL Gambar" />
+                <x-text-input id="image_url" name="image_url" class="mt-1 block w-full" value="{{ old('image_url', $product->image_url) }}"  />
+                <x-input-error class="mt-2" :messages="$errors->get('image_url')" />
             </div>
             <x-secondary-button tag="a" href="{{ route('product') }}">Batal</x-secondary-button>
             <x-primary-button value="true">Perbarui</x-primary-button>

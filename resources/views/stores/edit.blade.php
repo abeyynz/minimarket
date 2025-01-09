@@ -30,9 +30,15 @@
                                 </div>
 
                                 <div class="max-w-xl mx-auto">
-                                    <x-input-label for="image" value="Gambar Toko" />
-                                    <x-text-input id="image" type="file" name="image" class="mt-1 block w-full rounded-lg shadow-sm border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-green-500 dark:focus:border-green-500" accept="image/*" onchange="previewImage(event)" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('image')" />
+                                    <x-input-label for="image_url" value="URL Gambar" />
+                                    <x-text-input
+                                        id="image_url"
+                                        name="image_url"
+                                        class="mt-1 block w-full"
+                                        value="{{ old('image_url', $store->image_url) }}"
+                                        oninput="previewImage(this.value)"
+                                    />
+                                    <x-input-error class="mt-2" :messages="$errors->get('image_url')" />
                                 </div>
                             </div>
                             <div class="flex justify-center items-center">
@@ -59,20 +65,18 @@
     </div>
 
     <script>
-        function previewImage(event) {
-            const previewContainer = document.getElementById('image-preview-container');
+        function previewImage(url) {
             const previewImage = document.getElementById('image-preview');
             const placeholder = document.getElementById('image-placeholder');
 
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewImage.src = e.target.result;
-                    previewImage.classList.remove('hidden');
-                    placeholder.classList.add('hidden');
-                };
-                reader.readAsDataURL(file);
+            if (url) {
+                previewImage.src = url;
+                previewImage.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            } else {
+                previewImage.src = '';
+                previewImage.classList.add('hidden');
+                placeholder.classList.remove('hidden');
             }
         }
     </script>

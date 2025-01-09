@@ -27,6 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
 });
 
+// Route::middleware(['auth', 'role:owner,manager'])->group(function () {
+//     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+//     Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+// });
+
 Route::group(['middleware' => ['auth', 'role:owner']], function () {
     Route::get('/store/create', [StoreController::class, 'create'])->name('store.create');
     Route::get('/store/edit/{id}', [StoreController::class, 'edit'])->name('store.edit');

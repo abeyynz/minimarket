@@ -13,6 +13,9 @@
                     <x-primary-button tag="a" href="{{ route('store.create') }}" class="mb-6">
                         Tambah Cabang
                     </x-primary-button>
+                    {{-- <x-primary-button tag="a" href="{{ route('user.create') }}" class="mb-6">
+                        Tambah Manager
+                    </x-primary-button> --}}
                     @endhasrole
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -21,7 +24,7 @@
                                 <div class="overflow-hidden h-48 bg-gray-300 dark:bg-gray-600 mb-4">
                                     <img src="{{ $store->image_url }}" alt="{{ $store->name }}" class="w-full h-full object-cover object-center rounded-t-lg">
                                 </div>
-                                
+
                                 <div class="p-6">
                                     <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ $store->name }}</h3>
                                     <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{ $store->location }}</p>

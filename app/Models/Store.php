@@ -12,7 +12,7 @@ class Store extends Model
     public $timestamps = false;
     use HasFactory, HasRoles;
 
-    protected $fillable = ['name', 'location'];
+    protected $fillable = ['name','image_url', 'location'];
 
     public function products()
     {
