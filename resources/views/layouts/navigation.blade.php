@@ -37,9 +37,9 @@
                     <x-nav-link :href="route('transaction')" :active="request()->routeIs('transaction')">
                         {{ __('Transaction') }}
                     </x-nav-link>
-                    {{-- <x-nav-link :href="route('historytransaction')" :active="request()->routeIs('historytransaction')">
+                    <x-nav-link :href="route('history')" :active="request()->routeIs('history')">
                         {{ __('History') }}
-                    </x-nav-link> --}}
+                    </x-nav-link>
                     @endhasrole
                 </div>
             </div>

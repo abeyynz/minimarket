@@ -60,7 +60,10 @@ Route::group(['middleware' => ['auth', 'role:inventory']], function () {
 
 Route::group(['middleware' => ['auth', 'role:cashier']], function () {
     Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
-    Route::get('/historytransaction', [TransactionController::class, 'history'])->name('transaction.history');
+    Route::get('/history', [TransactionController::class, 'history'])->name('history');
+    Route::get('/transaction/{id}/detail', [TransactionController::class, 'detail'])->name('transaction.detail');
+    Route::get('/history/print', [TransactionController::class, 'print'])->name('history.print');
+    Route::get('/transaction/{id}/print', [TransactionController::class, 'printDetail'])->name('transaction.print');
 });
 
 require __DIR__.'/auth.php';

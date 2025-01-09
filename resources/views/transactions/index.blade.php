@@ -8,13 +8,29 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto mt-6 px-4">
+        <form method="GET" action="{{ route('transaction') }}" class="mb-4">
+            <div class="flex">
+                <input
+                    type="text"
+                    name="search_product"
+                    value="{{ $search }}"
+                    placeholder="Cari produk..."
+                    class="w-full px-4 py-2 border rounded-l-md"
+                />
+                <button
+                    type="submit"
+                    class="px-4 bg-blue-600 text-white rounded-r-md hover:bg-blue-700"
+                >
+                    Cari
+                </button>
+            </div>
+        </form>
         <form action="{{ route('transaction.store') }}" method="POST" id="transaction-form">
             @csrf
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                
                 <div class="col-span-2 md:col-span-2 lg:col-span-2">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @foreach ($products as $product)
+                        @forelse ($products as $product)
                             <div class="border rounded-lg shadow-md p-4 bg-blue-100 dark:bg-gray-700">
                                 <div class="text-center mb-4">
                                     <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-52 object-cover rounded-lg">
@@ -44,7 +60,14 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <!-- Pesan jika produk tidak ditemukan -->
+                            <div class="col-span-3 text-center">
+                                <p class="text-lg text-gray-500 dark:text-gray-400">
+                                    Tidak ada produk yang ditemukan.
+                                </p>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
                 <div class="col-span-1 border rounded-lg shadow-md p-6 bg-white dark:bg-gray-700">
@@ -56,12 +79,12 @@
                     </div>
 
                     <div class="text-center">
-                        <button
-                            type="submit"
-                            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                        >
-                            Proses Pesanan
-                        </button>
+                        <x-danger-button
+                            x-data
+                            x-on:click="$dispatch('open-modal', 'success-transaction'); action='{{ route('transaction.store') }}'"
+                            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            {{ __('Pesan') }}
+                        </x-danger-button>
                     </div>
                 </div>
 
@@ -74,6 +97,14 @@
             </div>
         </form>
     </div>
+    <x-modal name="success-transaction" focusable maxWidth="xl" x-data="{ action: '' }">
+        <form method="post" x-bind:action="action" class="p-6">
+            @csrf
+            <h1 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                {{ __('Transaksi berhasil') }}
+            </h1>
+        </form>
+    </x-modal>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const checkboxes = document.querySelectorAll('input[name="product_ids[]"]');
