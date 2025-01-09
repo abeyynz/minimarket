@@ -13,9 +13,9 @@
                     <x-primary-button tag="a" href="{{ route('store.create') }}" class="mb-6">
                         Tambah Cabang
                     </x-primary-button>
-                    {{-- <x-primary-button tag="a" href="{{ route('user.create') }}" class="mb-6">
+                    <x-primary-button tag="a" href="{{ route('user.create') }}" class="mb-6">
                         Tambah Manager
-                    </x-primary-button> --}}
+                    </x-primary-button>
                     @endhasrole
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

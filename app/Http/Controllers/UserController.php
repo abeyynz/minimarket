@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $data['stores'] = User::all();
+        $data['stores'] = Store::all();
         return view('users.create', $data);
     }
 
@@ -32,6 +32,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'string'],
+            'store_id' => ['required', 'exists:stores,id'],
         ]);
 
         $user = User::create([
@@ -39,15 +40,14 @@ class UserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'store_id' => $request->store_id,
         ]);
 
         $user->assignRole($request->role);
 
         event(new Registered($user));
 
-        // Auth::login($user);
-
-        return redirect(route('user', absolute: false));
+        return redirect()->back();
     }
 
     public function edit(string $id)

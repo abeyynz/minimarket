@@ -27,15 +27,35 @@
                             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
+                        <div class="mt-4" id="store-field">
+                            @hasrole('owner')
+                                <x-input-label for="store_id" :value="__('Store')" />
+                                <select id="store_id" name="store_id" class="block mt-1 w-full bg-indigo-950 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                    <option value="" disabled selected>{{ __('Select Store') }}</option>
+                                    @foreach ($stores as $store)
+                                        <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-input-error :messages="$errors->get('store_id')" class="mt-2" />
+                            @else
+                                <input type="hidden" id="store_id" name="store_id" value="{{ auth()->user()->store_id }}">
+                            @endhasrole
+                        </div>
                         <div class="mt-4">
                             <x-input-label for="role" :value="__('Role')" />
                             <select id="role" name="role" class="block mt-1 w-full bg-indigo-950 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                                 <option value="" disabled selected>{{ __('Select Role') }}</option>
-                                <option value="owner">{{ __('Owner') }}</option>
-                                <option value="manager">{{ __('Manager') }}</option>
-                                <option value="supervisor">{{ __('Supervisor') }}</option>
-                                <option value="cashier">{{ __('Cashier') }}</option>
-                                <option value="inventory">{{ __('Inventory') }}</option>
+
+                                @hasrole('owner')
+                                    <option value="owner">{{ __('Owner') }}</option>
+                                    <option value="manager">{{ __('Manager') }}</option>
+                                @endhasrole
+
+                                @hasrole('manager')
+                                    <option value="supervisor">{{ __('Supervisor') }}</option>
+                                    <option value="cashier">{{ __('Cashier') }}</option>
+                                    <option value="inventory">{{ __('Inventory') }}</option>
+                                @endhasrole
                             </select>
                             <x-input-error :messages="$errors->get('role')" class="mt-2" />
                         </div>
@@ -59,7 +79,12 @@
 
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
+                        @hasrole('manager')
                         <x-secondary-button tag="a" href="{{ route('user') }}">Cancel</x-secondary-button>
+                        @endhasrole
+                        @hasrole('owner')
+                        <x-secondary-button tag="a" href="{{ route('store') }}">Cancel</x-secondary-button>
+                        @endhasrole
                         <x-primary-button name="save">Create</x-primary-button>
                     </form>
 
