@@ -15,25 +15,25 @@
         <table class="table-auto w-full bg-white dark:bg-gray-400 border border-gray-200 rounded-lg shadow-md">
             <thead class="bg-blue-400 dark:bg-gray-700 text-white ">
                 <tr>
-                    <th class="border border-gray-300 px-4 py-2 text-left">No</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Kode Transaksi</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Tanggal</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Total Bayar</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Kasir</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Aksi</th>
+                    <th class="border border-gray-300 px-4 py-3 text-center">No</th>
+                    <th class="border border-gray-300 px-4 py-3 text-center">Kode Transaksi</th>
+                    <th class="border border-gray-300 px-4 py-3 text-center">Tanggal</th>
+                    <th class="border border-gray-300 px-4 py-3 text-center">Total Bayar</th>
+                    <th class="border border-gray-300 px-4 py-3 text-center">Kasir</th>
+                    <th class="border border-gray-300 px-4 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($transactions as $transaction)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $transaction->code }}</td>
-                        <td>{{ $transaction->date }}</td>
-                        <td>{{ $transaction->total }}</td>
-                        <td>{{ $transaction->user->name }}</td>
+                    <tr class="hover:bg-gray-300">
+                        <td class="border border-gray-300 px-4 py-3 text-center">{{ $loop->iteration }}</td>
+                        <td class="border border-gray-300 px-4 py-3 text-center">{{ $transaction->code }}</td>
+                        <td class="border border-gray-300 px-4 py-3 text-center">{{ $transaction->date }}</td>
+                        <td class="border border-gray-300 px-4 py-3 text-center">{{ $transaction->total }}</td>
+                        <td class="border border-gray-300 px-4 py-3 text-center">{{ $transaction->user->name }}</td>
 
-                        <td class="border border-gray-300 px-4 py-2 flex space-x-2">
-                            <a href="{{ route('transaction.detail', $transaction->id) }}" class="bg-blue-400 dark:bg-blue-900 hover:bg-blue-300 dark:hover:bg-blue-700 text-white dark:text-gray-100 py-1 px-4 rounded">
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            <a href="{{ route('transaction.detail', $transaction->id) }}" class="bg-blue-400 dark:bg-blue-900 hover:bg-blue-300 dark:hover:bg-blue-700 text-white dark:text-gray-100 py-2 px-4 rounded">
                                 Lihat Detail
                             </a>
                         </td>

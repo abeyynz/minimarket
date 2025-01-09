@@ -11,7 +11,7 @@
         </div>
     </x-slot>
     <main class="flex-grow container mx-auto mt-6 px-4">
-        <form method="post" action="{{ route('product.store') }}" class="mt-6 space-y-6">
+        <form method="post" action="{{ route('product.store') }}" class="space-y-6 max-w-md mx-auto">
             @csrf
             <div class="max-w-xl">
                 <x-input-label for="name" value="Nama Produk" />

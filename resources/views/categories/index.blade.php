@@ -9,26 +9,26 @@
         </div>
     </x-slot>
 
-    <main class="container mx-auto mt-6 px-4">
+    <main class="max-w-7xl mx-auto mt-6 px-4">
         <table class="table-auto w-full bg-white border dark:bg-gray-400 border-gray-200 rounded-lg shadow-md">
             <thead class="bg-blue-400 dark:bg-gray-700 text-white">
                 <tr>
-                    <th class="px-4 py-2 text-left border">ID</th>
-                    <th class="px-4 py-2 text-left border">Nama Kategori</th>
-                    <th class="px-4 py-2 text-left border">Kode Kategori</th>
+                    <th class="border border-gray-300 px-4 py-3 text-center">ID</th>
+                    <th class="border border-gray-300 px-4 py-3 text-center">Nama Kategori</th>
+                    <th class="border border-gray-300 px-4 py-3 text-center">Kode Kategori</th>
                     @hasrole('inventory')
-                        <th scope="col">Aksi</th>
+                        <th scope="col" class="border border-gray-300 px-4 py-3 text-center">Aksi</th>
                     @endhasrole
                 </tr>
             </thead>
             <tbody>
                 @foreach ($categories as $category)
-                    <tr class="hover:bg-gray-200">
-                        <td>{{ $loop->iteration }}</td>
-                        <td class="px-4 py-2 border">{{ $category->name }}</td>
-                        <td class="px-4 py-2 border">{{ $category->code }}</td>
+                    <tr class="hover:bg-gray-300">
+                        <td class="px-4 py-2 border text-center">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-2 border text-center">{{ $category->name }}</td>
+                        <td class="px-4 py-2 border text-center">{{ $category->code }}</td>
                         @hasrole('inventory')
-                            <td class="px-4 border">
+                            <td class="px-4 py-2 border border-gray-300 text-center">
                                 <x-primary-button tag="a"
                                     href="{{ route('category.edit', $category->id) }}">Ubah</x-primary-button>
                                 <x-danger-button x-data=""

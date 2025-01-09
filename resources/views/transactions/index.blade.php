@@ -9,13 +9,13 @@
 
     <div class="max-w-7xl mx-auto mt-6 px-4">
         <form method="GET" action="{{ route('transaction') }}" class="mb-4">
-            <div class="flex">
+            <div class="flex justify-left">
                 <input
                     type="text"
                     name="search_product"
                     value="{{ $search }}"
                     placeholder="Cari produk..."
-                    class="w-full px-4 py-2 border rounded-l-md"
+                    class="w-[12rem] px-2 py-2 border bg-gray-200 rounded-l-md"
                 />
                 <button
                     type="submit"
@@ -81,12 +81,12 @@
                         <span id="total-amount" class="font-bold text-xl text-blue-600 dark:text-gray-100">Rp 0</span>
                     </div>
                     <div class="text-center">
-                        <x-danger-button
+                        <button
                             x-data
                             x-on:click="$dispatch('open-modal', 'success-transaction'); action='{{ route('transaction.store') }}'"
                             class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
                             {{ __('Pesan') }}
-                        </x-danger-button>
+                        </button>
                     </div>
                 </div>
 
