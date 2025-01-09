@@ -14,7 +14,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        $data['users'] = User::with('store')->get();
+        $storeId = auth()->user()->store_id;
+        $data['users'] = User::with('store')->where('store_id', $storeId)->get();
         return view('users.index', $data);
     }
 
