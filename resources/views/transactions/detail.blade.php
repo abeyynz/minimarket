@@ -24,26 +24,17 @@
             <p><strong>Tanggal:</strong> {{ $transaction->date }}</p>
             <p><strong>Kasir:</strong> {{ $transaction->user->name }}</p>
         </div>
-        <table class="w-full text-sm mb-4">
-            <thead>
-                <tr>
-                    <th class="text-left">Produk</th>
-                    <th class="text-right">Qty</th>
-                    <th class="text-right">Harga</th>
-                    <th class="text-right">Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($transaction_details as $detail)
-                    <tr>
-                        <td>{{ $detail->product->name }}</td>
-                        <td class="text-right">{{ $detail->qty }}</td>
-                        <td class="text-right">Rp {{ number_format($detail->price, 0, ',', '.') }}</td>
-                        <td class="text-right">Rp {{ number_format($detail->total, 0, ',', '.') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="text-sm mb-4">
+            @foreach ($transaction_details as $detail)
+                <div class="mb-2">
+                    <div>{{ $detail->product->name }}</div>
+                    <div class="flex justify-between">
+                        <span>{{ $detail->qty }} x Rp {{ number_format($detail->price, 0, ',', '.') }}</span>
+                        <span class="font-semibold">Rp {{ number_format($detail->total, 0, ',', '.') }}</span>
+                    </div>
+                </div>
+            @endforeach
+        </div>
 
         <!-- Total -->
         <div class="border-t border-gray-300 pt-2 text-right">

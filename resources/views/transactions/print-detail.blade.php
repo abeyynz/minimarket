@@ -17,22 +17,17 @@
             border: 1px solid #ddd;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .product {
+            margin-bottom: 10px;
         }
 
-        th, td {
-            text-align: left;
-            padding: 5px;
+        .product-name {
+            font-weight: bold;
         }
 
-        th {
-            border-bottom: 1px solid #ddd;
-        }
-
-        .text-right {
-            text-align: right;
+        .product-detail {
+            display: flex;
+            justify-content: space-between;
         }
 
         .text-center {
@@ -51,26 +46,20 @@
         <p><strong>Tanggal:</strong> {{ $transaction->date }}</p>
         <p><strong>Kasir:</strong> {{ $transaction->user->name }}</p>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Produk</th>
-                    <th class="text-right">Qty</th>
-                    <th class="text-right">Harga</th>
-                    <th class="text-right">Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($transaction_details as $detail)
-                    <tr>
-                        <td>{{ $detail->product->name }}</td>
-                        <td class="text-right">{{ $detail->qty }}</td>
-                        <td class="text-right">Rp {{ number_format($detail->price, 0, ',', '.') }}</td>
-                        <td class="text-right">Rp {{ number_format($detail->total, 0, ',', '.') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div>
+            @foreach ($transaction_details as $detail)
+                <div class="product">
+                    <!-- Nama produk -->
+                    <div class="product-name">{{ $detail->product->name }}</div>
+
+                    <!-- Detail jumlah dan harga -->
+                    <div class="product-detail">
+                        <span>{{ $detail->qty }} x Rp {{ number_format($detail->price, 0, ',', '.') }}</span>
+                        <span>Rp {{ number_format($detail->total, 0, ',', '.') }}</span>
+                    </div>
+                </div>
+            @endforeach
+        </div>
 
         <p class="text-right bold">Total: Rp {{ number_format($transaction->total, 0, ',', '.') }}</p>
         <p class="text-center">Terima kasih atas kunjungan Anda!</p>

@@ -16,7 +16,12 @@
 
         th, td {
             padding: 8px;
-            text-align: left;
+            text-align: center;
+        }
+
+        .blue-column {
+            background-color: #60a5fa; /* Biru */
+            color: black; /* Warna teks putih agar kontras */
         }
 
         h2 {
@@ -30,11 +35,11 @@
     <table>
         <thead>
             <tr>
-                <th>No</th>
-                <th>Kode Transaksi</th>
-                <th>Tanggal</th>
-                <th>Total Bayar</th>
-                <th>Kasir</th>
+                <th class="blue-column">No</th>
+                <th class="blue-column">Kode Transaksi</th>
+                <th class="blue-column">Tanggal</th>
+                <th class="blue-column">Total Bayar</th>
+                <th class="blue-column">Kasir</th>
             </tr>
         </thead>
         <tbody>
