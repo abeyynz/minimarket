@@ -18,7 +18,7 @@
 
                             <div class="space-y-6">
                                 <div class="max-w-xl mx-auto">
-                                    <x-input-label for="name" value="Nama" />
+                                    <x-input-label for="name" value="Nama Cabang" />
                                     <x-text-input id="name" type="text" name="name" class="mt-1 block w-full rounded-lg shadow-sm border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-green-500 dark:focus:border-green-500" value="{{ old('name', $store->name) }}" required />
                                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                                 </div>

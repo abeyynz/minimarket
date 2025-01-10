@@ -39,7 +39,7 @@
                                         x-on:click.prevent="$dispatch('open-modal', 'confirm-store-deletion')"
                                         x-on:click="$dispatch('set-action', '{{ route('store.destroy', $store->id) }}')"
                                         class="text-sm">
-                                        {{ __('Hapus Toko') }}
+                                        {{ __('Hapus Cabang') }}
                                     </x-danger-button>
                                 </div>
                                 @endhasrole
