@@ -10,9 +10,17 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        $search = $request->get('search_product', '');
+        $products = Product::where('store_id', Auth::user()->store_id)
+            ->where('stock', '>', 0)
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%")
+                      ->orWhere('code', 'like', "%$search%");
+            })
+            ->paginate(9);
         $data['products'] = Product::where('store_id', Auth::user()->store_id)->get();
-        return view('products.index', $data);
+        return view('products.index', compact('products', 'search'), $data);
     }
     public function create(){
         $data['categories'] = Category::pluck('name', 'id');
