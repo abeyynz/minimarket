@@ -29,12 +29,14 @@ class TransactionController extends Controller
     public function history(Request $request)
     {
         $storeName = Auth::user()->store->name;
-        $data['transactions'] = Transaction::where('store_id', Auth::user()->store_id)
-            ->get();
+        $query = Transaction::where('store_id', Auth::user()->store_id);
 
-        $data['transaction_details'] = TransactionDetail::whereHas('transaction', function ($query) {
-            $query->where('store_id', Auth::user()->store_id);
-        })->get();
+        if ($request->has('start_date') && $request->has('end_date')) {
+            $query->whereBetween('date', [$request->start_date, $request->end_date]);
+        }
+
+        $data['transactions'] = $query->get();
+
         return view('transactions.history', $data, compact('storeName'));
     }
 
@@ -91,12 +93,20 @@ class TransactionController extends Controller
 
         return redirect()->route('transaction')->with('success', 'Transaksi berhasil disimpan!');
     }
-    public function print(){
-        $data['transactions'] = Transaction::where('store_id', Auth::user()->store_id)
-            ->get();
+    public function print(Request $request)
+    {
+        $query = Transaction::where('store_id', Auth::user()->store_id);
+
+        if ($request->has('start_date') && $request->has('end_date')) {
+            $query->whereBetween('date', [$request->start_date, $request->end_date]);
+        }
+
+        $data['transactions'] = $query->get();
         $pdf = Pdf::loadView('transactions.print', $data);
+
         return $pdf->stream('RiwayatTransaksi.pdf');
     }
+
 
     public function printDetail($id)
     {
