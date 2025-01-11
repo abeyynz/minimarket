@@ -9,7 +9,24 @@
         </div>
     </x-slot>
         <div class="max-w-7xl mx-auto mt-6 px-4">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+        <form method="GET" action="{{ route('product') }}" class="mb-4">
+            <div class="flex justify-left">
+                <input
+                    type="text"
+                    name="search_product"
+                    value="{{ $search }}"
+                    placeholder="Cari produk..."
+                    class="w-[14rem] px-2 py-2 border bg-gray-200 rounded-l-md"
+                />
+                <button
+                    type="submit"
+                    class="px-4 bg-blue-600 text-white rounded-r-md hover:bg-blue-700"
+                >
+                    Cari
+                </button>
+            </div>
+        </form>
+        @csrf
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         @foreach ($products as $product)
                             <div class="border rounded-lg shadow-md p-3 bg-blue-300 dark:bg-gray-700">
@@ -56,8 +73,6 @@
                             </div>
                         </form>
                     </x-modal>
-
-                </div>
             </div>
         </div>
 
