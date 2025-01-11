@@ -16,9 +16,9 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
+            <div class="shrink-0 flex items-center">
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    <img src="{{ asset('image/logo.png') }}" class="block h-9 w-auto fill-current text-white dark:text-gray-200" />
                 </a>
             </div>
 
