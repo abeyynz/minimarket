@@ -15,7 +15,7 @@
                     name="search_product"
                     value="{{ $search }}"
                     placeholder="Cari produk..."
-                    class="w-[12rem] px-2 py-2 border bg-gray-200 rounded-l-md"
+                    class="w-[12rem] px-2 py-2 border bg-white dark:bg-gray-200 rounded-l-md"
                 />
                 <button
                     type="submit"
