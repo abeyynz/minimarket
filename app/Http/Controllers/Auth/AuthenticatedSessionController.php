@@ -28,7 +28,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // Periksa peran pengguna dan arahkan ke halaman yang sesuai
         $user = Auth::user();
 
         if ($user->hasRole('owner')) {
@@ -42,7 +41,6 @@ class AuthenticatedSessionController extends Controller
         }elseif ($user->hasRole('supervisor')) {
             return redirect()->route('history');
         }
-        // Default redirect jika tidak ada role yang sesuai
         return redirect()->route('dashboard');
     }
 

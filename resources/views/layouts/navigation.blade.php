@@ -26,7 +26,7 @@
                     </x-nav-link>
                     @endhasrole
                     @hasrole('supervisor')
-                    <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
+                    <x-nav-link :href="route('logs')" :active="request()->routeIs('logs')">
                         {{ __('Log') }}
                     </x-nav-link>
                     <x-nav-link :href="route('history')" :active="request()->routeIs('history')">
@@ -39,6 +39,9 @@
                     </x-nav-link>
                     <x-nav-link :href="route('product')" :active="request()->routeIs('product')">
                         {{ __('Product') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('logs')" :active="request()->routeIs('logs')">
+                        {{ __('Log') }}
                     </x-nav-link>
                     @endhasrole
                     @hasrole('cashier')

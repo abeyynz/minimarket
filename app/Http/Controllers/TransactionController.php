@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\StockLog;
 use App\Models\Store;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
@@ -96,6 +97,19 @@ class TransactionController extends Controller
             $subtotal = $product->price * $validated['qty'][$product->id];
             $total += $subtotal;
         }
+
+        foreach ($products as $product) {
+            StockLog::create([
+                'product_id' => $product->id,
+                'change_type' => 'keluar',
+                'quantity' => $validated['qty'][$product->id],
+                'description' => 'Stok dikurangi karena transaksi penjualan',
+                'store_id' => Auth::user()->store_id,
+            ]);
+
+            $product->decrement('stock', $validated['qty'][$product->id]);
+        }
+
         $transaction = Transaction::create([
             'code' => 'TRX-' . strtoupper(Str::random(6)),
             'date' => now(),
@@ -121,7 +135,7 @@ class TransactionController extends Controller
     public function print(Request $request)
     {
         $query = Transaction::query();
-        $storeName = 'Semua Cabang';  
+        $storeName = 'Semua Cabang';
         if ($request->has('store_id') && $request->store_id == 'all') {
             $storeName = 'Semua Cabang';
         } elseif (Auth::user()->hasRole('owner') && $request->has('store_id') && $request->store_id) {

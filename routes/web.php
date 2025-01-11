@@ -77,7 +77,10 @@ Route::group(['middleware' => ['auth', 'role:owner|manager|cashier|supervisor']]
 Route::group(['middleware' => ['auth', 'role:cashier|supervisor']], function () {
     Route::get('/transaction/{id}/detail', [TransactionController::class, 'detail'])->name('transaction.detail');
 });
-
+Route::group(['middleware' => ['auth', 'role:inventory|supervisor|owner']], function () {
+    Route::get('/logs', [ProductController::class, 'showLogs'])->name('logs');
+    Route::get('/logs/print', [ProductController::class, 'print'])->name('logs.print');
+});
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard/{id}', [DashboardController::class, 'storeDashboard'])->name('dashboard.store');
 require __DIR__ . '/auth.php';

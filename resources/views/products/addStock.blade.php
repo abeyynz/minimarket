@@ -14,7 +14,7 @@
         <div class="flex-grow container mx-auto mt-6 px-4">
 
             <form method="post" action="{{ route('product.updateStock', $product->id) }}" enctype="multipart/form-data"
-                class="mt-6 space-y6">
+                class="space-y-6 max-w-md mx-auto">
                 @method('PATCH')
                 @csrf
                 <div class="max-w-xl">
@@ -28,5 +28,5 @@
             </form>
 
         </div>
-            
+
 </x-app-layout>

@@ -12,30 +12,22 @@
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-
-                    <form method="post" action="{{ route('category.update', $category->id) }}" class="mt-6 space-y-6">
-                        @csrf
-                        @method('PATCH')
-                        <div class="max-w-xl">
-                            <x-input-label for="name" value="Nama Kategori" />
-                            <x-text-input id="name" type="text" name="name" class="mt-1 block w-full" value="{{ old('name', $category->name) }}" required />
-                            <x-input-error class="mt-2" :messages="$errors->get('name')" />
-                        </div>
-                        <div class="max-w-xl">
-                            <x-input-label for="code" value="Kode Kategori" />
-                            <x-text-input id="code" type="text" name="code" class="mt-1 block w-full" value="{{ old('code', $category->code) }}" required />
-                            <x-input-error class="mt-2" :messages="$errors->get('code')" />
-                        </div>
-                        <x-secondary-button tag="a" href="{{ route('category') }}">Batal</x-secondary-button>
-                        <x-primary-button name="save">Perbarui</x-primary-button>
-                    </form>
-
-                </div>
+    <div class="flex-grow container mx-auto mt-6 px-4">
+        <form method="post" action="{{ route('category.update', $category->id) }}" class="space-y-6 max-w-md mx-auto">
+            @csrf
+            @method('PATCH')
+            <div class="max-w-xl">
+                <x-input-label for="name" value="Nama Kategori" />
+                <x-text-input id="name" type="text" name="name" class="mt-1 block w-full" value="{{ old('name', $category->name) }}" required />
+                <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
-        </div>
+            <div class="max-w-xl">
+                <x-input-label for="code" value="Kode Kategori" />
+                <x-text-input id="code" type="text" name="code" class="mt-1 block w-full" value="{{ old('code', $category->code) }}" required />
+                <x-input-error class="mt-2" :messages="$errors->get('code')" />
+            </div>
+            <x-secondary-button tag="a" href="{{ route('category') }}">Batal</x-secondary-button>
+            <x-primary-button name="save">Perbarui</x-primary-button>
+        </form>
     </div>
 </x-app-layout>

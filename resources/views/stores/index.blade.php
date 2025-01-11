@@ -18,7 +18,7 @@
                             <p class="mt-2 text-gray-600 dark:text-gray-400">Laporan Transaksi Cabang</p>
                         </a>
 
-                        <a href="{{ route('history') }}" class="bg-white dark:bg-gray-700 overflow-hidden shadow-lg sm:rounded-lg p-6 fade-in hover:scale-105 transition transform duration-300">
+                        <a href="{{ route('logs') }}" class="bg-white dark:bg-gray-700 overflow-hidden shadow-lg sm:rounded-lg p-6 fade-in hover:scale-105 transition transform duration-300">
                             <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Report</h3>
                             <div class="mt-4 text-2xl font-bold text-gray-900 dark:text-gray-200">
                                 {{ 'Stock' }}

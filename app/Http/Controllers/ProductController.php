@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\StockLog;
+use App\Models\Store;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -155,6 +158,14 @@ class ProductController extends Controller
             'stock' => $newStock,
         ]);
 
+        StockLog::create([
+            'product_id' => $product->id,
+            'change_type' => 'masuk',
+            'quantity' => $validate['stock'],
+            'description' => 'Stok ditambahkan',
+            'store_id' => Auth::user()->store_id,
+        ]);
+
         if($product){
             $notification = array(
                 'message' => 'produk berhasil ditambahkan',
@@ -178,6 +189,61 @@ class ProductController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('product')->with($notification);
+    }
+    public function showLogs(Request $request)
+    {
+        $user = Auth::user();
+        $storeName = 'Semua Cabang';
+
+        $query = StockLog::with('product', 'user');
+
+        if ($user->hasRole('owner')) {
+            if ($request->has('store_id') && $request->store_id != 'all') {
+                $query->where('store_id', $request->store_id);
+                $storeName = Store::find($request->store_id)->name ?? 'Cabang Tidak Ditemukan';
+            }
+        } else {
+            $query->where('store_id', $user->store_id);
+            $storeName = $user->store->name ?? 'Cabang Tidak Ditemukan';
+        }
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween('created_at', [
+                $request->start_date . ' 00:00:00',
+                $request->end_date . ' 23:59:59'
+            ]);
+        }
+
+        $stockLogs = $query->paginate(10);
+
+        if ($user->hasRole('owner')) {
+            $data['stores'] = Store::all();
+        } else {
+            $data['stores'] = [];
+        }
+
+        return view('products.logs', compact('stockLogs', 'storeName', 'data'));
+    }
+
+    public function print(Request $request)
+    {
+        $query = StockLog::with('product', 'user')
+                        ->where('store_id', Auth::user()->store_id);
+
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween('created_at', [
+                $request->start_date . ' 00:00:00',
+                $request->end_date . ' 23:59:59'
+            ]);
+        }
+
+        $stockLogs = $query->get();
+
+        $storeName = Auth::user()->store->name ?? 'Cabang Tidak Ditemukan';
+
+        $data = compact('stockLogs', 'storeName');
+
+        $pdf = Pdf::loadView('products.print', $data);
+        return $pdf->stream('LogStok.pdf');
     }
 
 }
