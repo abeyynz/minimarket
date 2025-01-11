@@ -21,6 +21,17 @@
                     <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
                         {{ __('User') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('history')" :active="request()->routeIs('history')">
+                        {{ __('History') }}
+                    </x-nav-link>
+                    @endhasrole
+                    @hasrole('supervisor')
+                    <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
+                        {{ __('Log') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('history')" :active="request()->routeIs('history')">
+                        {{ __('History') }}
+                    </x-nav-link>
                     @endhasrole
                     @hasrole('inventory')
                     <x-nav-link :href="route('category')" :active="request()->routeIs('category')">

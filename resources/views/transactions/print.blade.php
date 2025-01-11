@@ -20,39 +20,59 @@
         }
 
         .blue-column {
-            background-color: #60a5fa; /* Biru */
-            color: black; /* Warna teks putih agar kontras */
+            background-color: #60a5fa; 
+            color: black;
         }
 
         h2 {
             text-align: center;
         }
+
+        .no-data-message {
+            text-align: center;
+            font-size: 18px;
+            color: red;
+            font-weight: bold;
+        }
+        .store-name {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <h2>Riwayat Transaksi - Mini Market Pak Jayusman</h2>
+    <h2>Riwayat Transaksi - JayuSMart</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th class="blue-column">No</th>
-                <th class="blue-column">Kode Transaksi</th>
-                <th class="blue-column">Tanggal</th>
-                <th class="blue-column">Total Bayar</th>
-                <th class="blue-column">Kasir</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($transactions as $transaction)
+    <div class="store-name">
+        <p><strong>{{ $storeName }}</strong></p>
+    </div>
+
+    @if (isset($no_data_message))
+        <p class="no-data-message">{{ $no_data_message }}</p>
+    @else
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $transaction->code }}</td>
-                    <td>{{ $transaction->date }}</td>
-                    <td>Rp {{ number_format($transaction->total, 0, ',', '.') }}</td>
-                    <td>{{ $transaction->user->name }}</td>
+                    <th class="blue-column">No</th>
+                    <th class="blue-column">Kode Transaksi</th>
+                    <th class="blue-column">Tanggal</th>
+                    <th class="blue-column">Total Bayar</th>
+                    <th class="blue-column">Kasir</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($transactions as $transaction)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $transaction->code }}</td>
+                        <td>{{ \Carbon\Carbon::parse($transaction->date)->format('d-m-Y') }}</td>
+                        <td>Rp {{ number_format($transaction->total, 0, ',', '.') }}</td>
+                        <td>{{ $transaction->user->name }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 </body>
 </html>

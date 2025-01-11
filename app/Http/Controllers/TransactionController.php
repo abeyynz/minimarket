@@ -29,17 +29,41 @@ class TransactionController extends Controller
     }
     public function history(Request $request)
     {
-        $storeName = Auth::user()->store->name;
-        $query = Transaction::where('store_id', Auth::user()->store_id);
+        $user = Auth::user();
+        $storeName = 'Semua Cabang';
 
-        if ($request->has('start_date') && $request->has('end_date')) {
-            $query->whereBetween('date', [$request->start_date, $request->end_date]);
+        $query = Transaction::query();
+
+        if ($request->has('store_id') && $request->store_id == 'all') {
+            $storeName = 'Semua Cabang';
+        } elseif (!$user->hasRole('owner')) {
+            $query->where('store_id', $user->store_id);
+            $storeName = $user->store->name ?? 'Cabang Tidak Ditemukan';
+        } else {
+            if ($request->has('store_id') && $request->store_id) {
+                $query->where('store_id', $request->store_id);
+                $storeName = Store::find($request->store_id)->name ?? 'Cabang Tidak Ditemukan';
+            }
+        }
+
+        if ($request->has('start_date') || $request->has('end_date')) {
+            $startDate = $request->start_date ?? '1900-01-01';
+            $endDate = $request->end_date ?? now()->toDateString();
+            $query->whereBetween('date', [$startDate, $endDate]);
         }
 
         $data['transactions'] = $query->get();
 
+        if ($user->hasRole('owner')) {
+            $data['stores'] = Store::all();
+        } else {
+            $data['stores'] = [];
+        }
+
         return view('transactions.history', $data, compact('storeName'));
     }
+
+
 
     public function detail(String $id)
     {
@@ -96,18 +120,33 @@ class TransactionController extends Controller
     }
     public function print(Request $request)
     {
-        $query = Transaction::where('store_id', Auth::user()->store_id);
+        $query = Transaction::query();
+        $storeName = 'Semua Cabang';  
+        if ($request->has('store_id') && $request->store_id == 'all') {
+            $storeName = 'Semua Cabang';
+        } elseif (Auth::user()->hasRole('owner') && $request->has('store_id') && $request->store_id) {
+            $query->where('store_id', $request->store_id);
+            $storeName = Store::find($request->store_id)->name ?? 'Cabang Tidak Ditemukan';
+        } else {
+            $query->where('store_id', Auth::user()->store_id);
+            $storeName = Auth::user()->store->name ?? 'Cabang Tidak Ditemukan';
+        }
 
         if ($request->has('start_date') && $request->has('end_date')) {
             $query->whereBetween('date', [$request->start_date, $request->end_date]);
         }
 
         $data['transactions'] = $query->get();
+        $data['storeName'] = $storeName;
+
+        if ($data['transactions']->isEmpty()) {
+            $data['no_data_message'] = 'Tidak ada data untuk dicetak';
+        }
+
         $pdf = Pdf::loadView('transactions.print', $data);
 
         return $pdf->stream('RiwayatTransaksi.pdf');
     }
-
 
     public function printDetail($id)
     {

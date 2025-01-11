@@ -50,7 +50,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const incomeData = @json($incomeData); // Mengambil data dari Laravel dan mengubahnya ke format JSON
+        const incomeData = @json($incomeData);
 
         const ctx = document.getElementById('incomeChart').getContext('2d');
         new Chart(ctx, {
@@ -59,7 +59,7 @@
                 labels: ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4'],
                 datasets: [{
                     label: 'Pemasukan (Rp)',
-                    data: incomeData, // Gunakan data dari server
+                    data: incomeData,
                     backgroundColor: ['rgba(75, 192, 192, 0.6)'],
                     borderColor: ['rgba(75, 192, 192, 1)'],
                     borderWidth: 1

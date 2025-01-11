@@ -39,8 +39,9 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('transaction');
         } elseif ($user->hasRole('manager')) {
             return redirect()->route('user');
+        }elseif ($user->hasRole('supervisor')) {
+            return redirect()->route('history');
         }
-
         // Default redirect jika tidak ada role yang sesuai
         return redirect()->route('dashboard');
     }

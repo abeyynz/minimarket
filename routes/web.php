@@ -61,8 +61,6 @@ Route::group(['middleware' => ['auth', 'role:inventory']], function () {
 Route::group(['middleware' => ['auth', 'role:cashier']], function () {
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
     Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
-    Route::get('/transaction/{id}/detail', [TransactionController::class, 'detail'])->name('transaction.detail');
-    Route::get('/history/print', [TransactionController::class, 'print'])->name('history.print');
     Route::get('/transaction/{id}/print', [TransactionController::class, 'printDetail'])->name('transaction.print');
 });
 
@@ -72,8 +70,12 @@ Route::get('/user/create', [UserController::class, 'create'])->name('user.create
 Route::post('/user/store', [UserController::class, 'store'])->name('user.store')
     ->middleware(['auth', 'role:manager|owner']);
 
-Route::group(['middleware' => ['auth', 'role:owner|manager|cashier']], function () {
+Route::group(['middleware' => ['auth', 'role:owner|manager|cashier|supervisor']], function () {
+    Route::get('/history/print', [TransactionController::class, 'print'])->name('history.print');
     Route::get('/history', [TransactionController::class, 'history'])->name('history');
+});
+Route::group(['middleware' => ['auth', 'role:cashier|supervisor']], function () {
+    Route::get('/transaction/{id}/detail', [TransactionController::class, 'detail'])->name('transaction.detail');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

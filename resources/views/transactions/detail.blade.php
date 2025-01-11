@@ -11,14 +11,16 @@
                     Detail {{ $transaction->code }}
                 </h2>
             </div>
+            @hasrole('cashier')
             <a href="{{ route('transaction.print', $transaction->id) }}"
                 class="bg-blue-400 dark:bg-blue-900 hover:bg-blue-300 dark:hover:bg-blue-700 text-white dark:text-gray-100 py-1 px-4 rounded">
                 print
             </a>
+            @endhasrole
         </div>
     </x-slot>
     <div class="max-w-md mx-auto mt-8 p-4 bg-white border border-gray-200 rounded-lg shadow-md">
-        <h2 class="text-center text-lg font-bold mb-4">Mini Market Pak Jayusman</h2>
+        <h2 class="text-center text-lg font-bold mb-4">Mini Market JayuSMart</h2>
         <div class="text-sm mb-4">
             <p><strong>Kode Transaksi:</strong> {{ $transaction->code }}</p>
             <p><strong>Tanggal:</strong> {{ $transaction->date }}</p>

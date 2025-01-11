@@ -9,6 +9,24 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-6">
+                        <a href="{{ route('history') }}" class="bg-white dark:bg-gray-700 overflow-hidden shadow-lg sm:rounded-lg p-6 fade-in hover:scale-105 transition transform duration-300">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Report</h3>
+                            <div class="mt-4 text-2xl font-bold text-gray-900 dark:text-gray-200">
+                                {{ 'Transaksi' }}
+                            </div>
+                            <p class="mt-2 text-gray-600 dark:text-gray-400">Laporan Transaksi Cabang</p>
+                        </a>
+
+                        <a href="{{ route('history') }}" class="bg-white dark:bg-gray-700 overflow-hidden shadow-lg sm:rounded-lg p-6 fade-in hover:scale-105 transition transform duration-300">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Report</h3>
+                            <div class="mt-4 text-2xl font-bold text-gray-900 dark:text-gray-200">
+                                {{ 'Stock' }}
+                            </div>
+                            <p class="mt-2 text-gray-600 dark:text-gray-400">Riwayat Stock Gudang</p>
+                        </a>
+                </div>
+                <div class="p-6 text-gray-900 dark:text-gray-100">
                     @hasrole('owner')
                     <x-primary-button tag="a" href="{{ route('store.create') }}" class="mb-6">
                         Tambah Cabang
@@ -39,10 +57,11 @@
                                         <x-danger-button x-data=""
                                             x-on:click.prevent="$dispatch('open-modal', 'confirm-store-deletion')"
                                             x-on:click="$dispatch('set-action', '{{ route('store.destroy', $store->id) }}')"
-                                            class="text-sm">
+                                            class="text-sm ml-auto">
                                             {{ __('Hapus Cabang') }}
                                         </x-danger-button>
                                     </div>
+
                                     @endhasrole
                                 </a>
                             </div>
