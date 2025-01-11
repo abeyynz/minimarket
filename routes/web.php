@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
@@ -60,7 +61,6 @@ Route::group(['middleware' => ['auth', 'role:inventory']], function () {
 Route::group(['middleware' => ['auth', 'role:cashier']], function () {
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
     Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
-    Route::get('/history', [TransactionController::class, 'history'])->name('history');
     Route::get('/transaction/{id}/detail', [TransactionController::class, 'detail'])->name('transaction.detail');
     Route::get('/history/print', [TransactionController::class, 'print'])->name('history.print');
     Route::get('/transaction/{id}/print', [TransactionController::class, 'printDetail'])->name('transaction.print');
@@ -72,4 +72,10 @@ Route::get('/user/create', [UserController::class, 'create'])->name('user.create
 Route::post('/user/store', [UserController::class, 'store'])->name('user.store')
     ->middleware(['auth', 'role:manager|owner']);
 
+Route::group(['middleware' => ['auth', 'role:owner|manager|cashier']], function () {
+    Route::get('/history', [TransactionController::class, 'history'])->name('history');
+});
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/{id}', [DashboardController::class, 'storeDashboard'])->name('dashboard.store');
 require __DIR__ . '/auth.php';

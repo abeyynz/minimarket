@@ -28,8 +28,23 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Periksa peran pengguna dan arahkan ke halaman yang sesuai
+        $user = Auth::user();
+
+        if ($user->hasRole('owner')) {
+            return redirect()->route('store');
+        } elseif ($user->hasRole('inventory')) {
+            return redirect()->route('product');
+        } elseif ($user->hasRole('cashier')) {
+            return redirect()->route('transaction');
+        } elseif ($user->hasRole('manager')) {
+            return redirect()->route('user');
+        }
+
+        // Default redirect jika tidak ada role yang sesuai
+        return redirect()->route('dashboard');
     }
+
 
     /**
      * Destroy an authenticated session.

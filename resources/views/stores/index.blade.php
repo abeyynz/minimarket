@@ -21,28 +21,30 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @foreach ($stores as $store)
                             <div class="bg-white dark:bg-gray-700 rounded-lg shadow-2xl hover:shadow-3xl transform transition-all duration-300 overflow-hidden">
-                                <div class="overflow-hidden h-48 bg-gray-300 dark:bg-gray-600 mb-4">
-                                    <img src="{{ $store->image_url }}" alt="{{ $store->name }}" class="w-full h-full object-cover object-center rounded-t-lg">
-                                </div>
+                                <a href="{{ route('dashboard.store', $store->id) }}" class="block">
+                                    <div class="overflow-hidden h-48 bg-gray-300 dark:bg-gray-600 mb-4">
+                                        <img src="{{ $store->image_url }}" alt="{{ $store->name }}" class="w-full h-full object-cover object-center rounded-t-lg">
+                                    </div>
 
-                                <div class="p-6">
-                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ $store->name }}</h3>
-                                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{ $store->location }}</p>
-                                </div>
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ $store->name }}</h3>
+                                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{ $store->location }}</p>
+                                    </div>
 
-                                @hasrole('owner')
-                                <div class="p-4 bg-gray-50 dark:bg-gray-800 flex justify-between items-center border-t border-gray-200 dark:border-gray-600">
-                                    <x-primary-button tag="a" href="{{ route('store.edit', $store->id) }}" class="text-sm">
-                                        Edit
-                                    </x-primary-button>
-                                    <x-danger-button x-data=""
-                                        x-on:click.prevent="$dispatch('open-modal', 'confirm-store-deletion')"
-                                        x-on:click="$dispatch('set-action', '{{ route('store.destroy', $store->id) }}')"
-                                        class="text-sm">
-                                        {{ __('Hapus Cabang') }}
-                                    </x-danger-button>
-                                </div>
-                                @endhasrole
+                                    @hasrole('owner')
+                                    <div class="p-4 bg-gray-50 dark:bg-gray-800 flex justify-between items-center border-t border-gray-200 dark:border-gray-600">
+                                        <x-primary-button tag="a" href="{{ route('store.edit', $store->id) }}" class="text-sm">
+                                            Edit
+                                        </x-primary-button>
+                                        <x-danger-button x-data=""
+                                            x-on:click.prevent="$dispatch('open-modal', 'confirm-store-deletion')"
+                                            x-on:click="$dispatch('set-action', '{{ route('store.destroy', $store->id) }}')"
+                                            class="text-sm">
+                                            {{ __('Hapus Cabang') }}
+                                        </x-danger-button>
+                                    </div>
+                                    @endhasrole
+                                </a>
                             </div>
                         @endforeach
                     </div>
